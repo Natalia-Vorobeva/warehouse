@@ -1,0 +1,18 @@
+@import './assets/styles/config/_mixins.scss';
+
+.app {
+	font-size: 12rem;	
+	background-color: $bg-gallery;
+	// position: absolute;
+	// content: "";
+	// top: 0;
+	// left: 0;
+	// width: 100%;
+	// height: 100%;
+	width: 100vw;
+	height: 100vh;
+
+	&__pages {
+		position: relative;
+	}
+}

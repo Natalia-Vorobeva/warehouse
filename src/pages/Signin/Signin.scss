@@ -1,0 +1,20 @@
+@import '../../assets/styles/config/colors';
+
+.signin {
+	position: absolute;
+	content: '';
+	top: 0;
+	bottom: '0';
+  left: '0';
+	right: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: $bg-web;
+	opacity: .5;
+
+	&_opacity {
+		// pointer-events: none;
+		opacity: .3;
+	}
+
+}

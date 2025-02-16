@@ -1,0 +1,25 @@
+@import '../styles/config/colors';
+
+#root {
+	height: 100%;
+	width: 100%;
+	background-color: $bg-cornflowers;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+  text-size-adjust: 100%;
+  font-size: 62.5%;
+	scroll-behavior: smooth;
+}
+
+body {	
+	width: 100%;
+	font-family: Oswald, Montserrat, arial, sans-serif;
+	font-family: "Cabin Condensed", sans-serif;
+}
