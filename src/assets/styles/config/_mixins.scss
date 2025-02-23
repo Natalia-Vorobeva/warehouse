@@ -1,0 +1,41 @@
+@use 'sass:math';
+
+@import './_colors.scss';
+@import './_vars.scss';
+
+// брейкпоинты
+@mixin mq($from, $to: false) {
+	@if $to {
+			@media (min-width: #{$from}px) and (max-width: #{$to}px) {
+					@content;
+			}
+	} @else {
+			@media (max-width: #{$from}px) {
+					@content;
+			}
+	}
+}
+
+// padding
+@mixin padd($padd) {
+	padding: $padd;
+}
+
+// flex
+@mixin flex($direction: row, $gap: 0) {
+	display: flex;
+	flex-direction: $direction;
+	gap: $gap;
+	@content;
+}
+
+// font-size и line-height текста 
+@mixin font-size($font-size, $line-height: normal) {
+  font-size: $font-size * 1rem;
+
+  @if $line-height == normal {
+    line-height: normal;
+  } @else {
+    line-height: math.div($line-height, $font-size);
+  }
+}

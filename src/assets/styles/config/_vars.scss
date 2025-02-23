@@ -1,0 +1,7 @@
+@use 'sass:math';
+
+// @debug math.div(20px / 673px); 
+$container_padding-673: math.percentage(math.div(20px, 673px)); 
+$flex-item-1000: math.percentage(math.div(490px, 1000px));
+$flex-item-673: math.percentage(math.div(673px, 673px));
+$flex_gutter: math.percentage(math.div(20px, 1000px));

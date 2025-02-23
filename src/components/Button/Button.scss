@@ -1,0 +1,24 @@
+@import '../../assets/styles/config/colors';
+
+.button {
+	width: 12rem;	
+	height: 5rem;
+	border-top-left-radius: 1rem;
+	border-bottom-left-radius: 1rem;
+	font-size: 2rem;
+	padding: 0 1.5rem;
+	background-color: $bg-gray;
+	color: white;
+	display: flex;	
+	align-items: center;
+	justify-self: end;
+
+	&__aside {
+		max-width: 100%;
+		justify-self: start;
+	}
+
+	&:hover {
+		cursor: pointer;
+	} 	
+}
