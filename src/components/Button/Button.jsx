@@ -1,12 +1,14 @@
 import './Button.scss';
 
-function Button( { btnText, handleClickButton, className } ) {
+function Button( { type, btnText, handleClickButton, className } ) {
 	
 
 return (
-<div onClick={handleClickButton} className={`button ${className}`}>
-	{btnText}
-</div>
+<button type={type} onClick={handleClickButton} className={`button ${className}`}
+ aria-label="Закрыть"
+ >
+	{btnText || "Сохранить"}
+</button>
 );
 }
 

@@ -1,0 +1,50 @@
+.add-button {
+	margin: 0 0 0 26%;
+	padding: 0 0 0 45%;
+	height: 45%;
+	display: flex;
+	align-self: center;
+	border-radius: 48%;
+	cursor: pointer;
+	&:before,
+	&:after {
+				position: absolute;
+				content: '';
+				top: 50%;
+				left: 30%;
+				width: 40%;
+				height: .1rem;
+				background-color: hsl(0, 0%, 27%);
+				
+		}					
+		&:before {
+				transform: rotate(90deg);
+		}					
+		&:after {
+				transform: rotate(180deg);
+		}
+		
+		&__close-popup {
+			cursor: pointer;
+			transform: rotate(45deg);
+			margin: .5rem 0 0 0;
+			padding: 2rem;
+		}	
+		
+// 		&__position {
+// 			margin: 0 0 0 26%;
+//     padding: 0 0 0 45%;
+//     height: 45%;
+//     display: flex
+// ;
+//     align-self: center;
+//     border-radius: 48%;
+//     cursor: pointer;
+// 		}
+}
+
+.disable {
+	pointer-events: none;	
+	display: none;
+	
+}

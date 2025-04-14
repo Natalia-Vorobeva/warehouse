@@ -12,9 +12,9 @@ function Signin({ handleClickButton, btn }) {
 			{
 				btn
 					?
-					<Button handleClickButton={handleClickButton} btnText='ВХОД' />
+					<Button handleClickButton={handleClickButton} className='' btnText='ВХОД' />
 					:
-					''
+					<></>
 
 			}
 

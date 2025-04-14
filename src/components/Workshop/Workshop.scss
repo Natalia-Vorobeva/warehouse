@@ -1,0 +1,92 @@
+.workshop {
+	position: relative;
+	height: 100%;
+	&__contaiter {
+	height: 100%;	
+	font-size: 1rem;
+	}
+
+	&__grid {
+		display: grid;
+		height: 100%;
+		grid-template-rows: repeat(3, 1fr);
+	}
+
+	&__row-south {
+		border: 1px solid #efc58a;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr) 20% repeat(2, 1fr);
+	}
+
+	&__warehouse {	
+		background-color: #f5d15e;
+	}
+
+	&__mechanical {
+		background-color: #f9d17b;
+	}
+
+	&__injection {
+		background-color: #f5dd91;
+	}
+
+	&__cnc {
+		background-color: #edf1b9;
+	}
+
+	&__row-equator {
+		border: 1px solid #b1eba0;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr) 20% 2fr;
+	}
+
+	&__milling-machine {
+		background-color: #d0f3c1;
+	}
+
+	&__processing {
+		background-color: #c6f591;
+	}
+
+	&__assembling {
+		background-color: #b0dd7d;
+	}
+
+	&__painting {
+		background-color: #d7f9af;
+	}
+
+	&__row-north {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr) 20% repeat(2, 1fr);
+		border: 1px solid #96f0fa;		
+	}
+
+	&__cutting {
+		padding: 1px 3px;
+		background-color: rgb(149, 148, 148);
+		
+	}
+
+	&__extrusion {
+		padding: 1px 3px;
+		background-color: #a6a8a9;
+		
+	}
+
+	&__lasers {
+		padding: 1px 3px;
+		background-color: #c8cdd0;
+	}
+
+	&__flexible {	
+		padding: 1px 3px;	
+		background-color: #929fa5;
+	}
+
+	&__welding {
+		padding: 1px 3px;
+		color: white;
+		background-color: #4a4b4b;
+	}
+}

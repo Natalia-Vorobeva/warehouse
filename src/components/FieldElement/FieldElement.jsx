@@ -1,20 +1,20 @@
 // import styled from "styled-components";
 // import { animated } from "react-spring";
 
+import Bookmark from "../Bookmark/Bookmark";
+
 // import './FieldElement.scss';
 
 function FieldElement({
 	text,
-	className
+	className,
+	subtext
 }) {
 
 	return (
 		<div className={className}>
-			{text}
+			<Bookmark text={text} subtext={subtext} />
 		</div>
-		// <div className={className} {...props}>
-		// 	{text}{label}
-		// </div>
 	);
 }
 

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { animated } from "react-spring";
 
 import './BlockDev.scss';
+import AddButton from "../AddButton/AddButton";
 
 function BlockDev({
 
@@ -24,17 +25,23 @@ function BlockDev({
   ${({ background }) => background && `background: ${background};`}
 `;
 
-// const StyledText = styled("p")`
-//   color: white;
-//   font-weight: 600;
-//   font-size: 24px;
-// `;
+const StyledText = styled("span")`
+  color: white;
+  font-weight: 600;
+  font-size: 24px;
+`;
 
 	return (
 		<BlockWrapper className={className} {...props}>
-			{/* <StyledText>
-				{label}
-			</StyledText> */}
+		
+			<StyledText>
+				{/*add-button class не работает */}
+			{/* <AddButton 
+			className='block-dev' 
+			/> */}
+				{/* {label} */}
+			</StyledText>
+		
 		</BlockWrapper>
 	);
 }

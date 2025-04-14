@@ -2,7 +2,7 @@ export const isInside = (element, coordinate) => {
   const { left, right, bottom, top } = element.getBoundingClientRect();
   // if bottom and right not exist then it's a point
   if (!coordinate.right || !coordinate.bottom) {
-    console.log(coordinate.left, right);
+    // console.log(coordinate.left, right);
     if (coordinate.left > right || coordinate.left < left) {
       return false;
     }

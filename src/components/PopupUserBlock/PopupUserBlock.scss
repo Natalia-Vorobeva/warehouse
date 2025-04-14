@@ -1,0 +1,106 @@
+.popup-user-block {
+	position: absolute;
+	z-index: 101;
+	top: 102%;
+	// bottom: -156%;
+	left: 0;
+	max-width:40vw;
+	min-width: 20vw;
+	display: none;
+	background-color: #cfcccc;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+	border-radius: .3rem;
+
+	&__container {
+		padding: .5rem;
+		position: relative;
+	}
+
+	&__title {
+		text-align: center;
+		font-size: 1.3rem;
+		line-height: 1.5rem;
+		padding: 1rem 0 0 0;
+	}
+
+	&__data {
+	font-size: 1.2rem;
+	padding: 2rem 0 0 0;
+	}
+
+	&__comment {
+		font-size: 1rem;
+		border-top: 1px solid #000;
+
+		&_data {			
+			display: flex;
+			justify-content: space-between;
+		}
+
+		&_more {			
+			font-size: .8rem;
+		}
+
+		&_text {
+			display: flex;
+			max-width: 100%;
+
+		}
+		&_del {
+			font-size: 1rem;
+			color: red;
+			max-width: 2rem;
+			padding: 0 1rem;
+			transform: rotate(-45deg);
+		}
+	}
+
+	&__input-comment {
+		&::placeholder {
+			font-size: .8rem;
+			padding: 0 0 0 .5rem;
+			text-align: center;	
+		}
+		&_span {
+			font-size: 1rem;
+		}
+		&_data {
+			font-size: 1rem;
+		}
+	}
+
+	&__input-comment {
+		width: 100%;
+		outline: none;
+		font-size: 1rem;
+	}
+
+	&__button {
+		display: block;
+		font-size: 1.5rem;
+		width: 100%;
+		height: 2rem;
+		border-radius: .3rem;
+		padding: 0;
+		text-align: center;
+		margin: 1rem 0 0 0;
+		font-size: 1rem;
+	}
+
+	&__close {
+		position: absolute;
+		top: 7%;
+		right: 0;
+		width: 2rem;
+		transform: rotate(45deg);
+	}
+
+	&_opened {
+		display: block;
+		visibility: visible;
+		opacity: 1;
+	}
+
+
+
+}

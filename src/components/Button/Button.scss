@@ -21,4 +21,35 @@
 	&:hover {
 		cursor: pointer;
 	} 	
+
+	&__opacity {
+		opacity: 0;
+	}
+
+	&__save {
+		width: 100%;
+		margin-top: 22px;
+		padding: 14px 0 11px 0;
+		color: #fff;
+		background-color: rgb(87, 42, 42);
+		font-style: normal;
+		font-weight: 400;
+		font-size: 18px;
+		line-height: 1.22;
+		transition: all 1s ease;
+		border-radius: 2px;
+		cursor: pointer;
+		justify-content: center;
+		border-radius: .5rem;
+
+		&:hover {
+			transition: all .2s ease;
+			opacity: .8;
+		}
+	}
+	&__aside-select {
+		font-size: 1rem;
+		max-width: 100%;
+		
+	}
 }

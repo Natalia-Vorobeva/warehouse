@@ -1,3 +1,143 @@
 .popup {
+	position: fixed;
+  width: 100vw;
+  height: 100vh;
+	border: 1px solid #000;
+  background: rgba(0, 0, 0, .5);
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  transition: all .4s linear;
+  opacity: 0;
+	z-index: 100;
+
 	
+
+	&__container {
+		min-height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}	
+
+	&__content {
+		position: relative;
+		width: 43rem;
+		color: #000;
+		background-color: #fff;
+		box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+		border-radius: 10px;
+		box-sizing: border-box;
+		padding: 3.6rem;
+
+		@media (max-width:530px){
+				max-width: 282px;
+				padding: 25px 22px;
+		}
+	}	
+
+	&_opened {
+		display: block;
+		visibility: visible;
+		opacity: 1;
+		z-index: 200;
+	}
+
+	@media (max-width:530px){
+			width: 20px;
+			height: 20px;		
+	}
+
+	&__title {
+		font-style: normal;
+		font-size: 2.4rem;
+		line-height: 1.2;
+		margin: 0 0 4.1rem 0;
+		padding: 4rem 0 0 0;
+		text-align: center;
+
+		&_size-margin_small {
+			margin-bottom: 13px;
+		}
+	}
+	
+	@media (max-width:425px){
+			font-size: 18px;
+			margin-bottom: 75px;
+	}
+
+	&__close {
+		position: absolute;
+		top: 2%;
+		right: 2%;
+		width: 4rem;
+		height: 4rem;
+		padding: 0;
+		background-color: rgba(0, 0, 0, 0);
+		border: none;
+
+		&:hover {
+			transition: opacity 0.2s ease;
+			opacity: 0.6;
+		} 
+	
+		@media (max-width:530px){
+				top: -37px;
+				right: 5px;
+				width: 20px;
+				height: 20px;
+			}
+		} 
+
+		&__image-close {
+			width: 3rem;
+			height: 3rem;
+			cursor: pointer;
+			transition: opacity .2s ease;			
+			cursor: pointer;
+			}
+
+		&__save {
+			// width: 100%;
+			// margin-top: 22px;
+			// padding: 14px 0 11px 0;
+			// color: #fff;
+			// background-color: #000;
+			// font-style: normal;
+			// font-weight: 400;
+			// font-size: 18px;
+			// line-height: 1.22;
+			// transition: all 1s ease;
+			// border-radius: 2px;
+			// cursor: pointer;
+
+		&:hover {
+			transition: all .2s ease;
+			opacity: .8;
+		}
+
+		@media (max-width:425px){
+				font-size: 14px;
+				line-height: 1.2;
+				padding-bottom: 14px 0;
+				margin-top: 25px;
+		}
+
+		&_disabled {
+			background: #fff;
+			border: 1px solid rgba(0, 0, 0, .2);
+			box-shadow: 0px 0px 25px rgba(0, 0, 0, .15);
+			color: rgba(0, 0, 0, .2);
+			transition: all .1s ease;
+			box-sizing: border-box;
+			cursor: auto;
+
+			&:focus {
+				-webkit-tap-highlight-color: rgba(0, 0, 0, .2);
+			}
+			&:active {
+				-webkit-tap-highlight-color: rgba(255, 255, 255, .2);
+			}
+		}
+	}	
 }

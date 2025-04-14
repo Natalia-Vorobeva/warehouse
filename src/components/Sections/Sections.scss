@@ -1,0 +1,202 @@
+// keyframes можно будет удалить
+@keyframes pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.01);
+    opacity: 0;
+  }
+}
+
+.sections {	
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: grid;
+	grid-template-columns: 2.5rem 1fr;
+	
+	font-size: 1rem;
+	padding: 2.6rem  0 0;
+	border-left: 1px solid #333;
+
+	&__catalog {
+		height: 100%;
+		display: grid;	
+		grid-template-rows: repeat(8, 1fr);		
+	}
+
+	&__levels {
+		padding: .5rem 0 0 1.5rem;		
+	}
+
+	&__level {
+		font-size: calc(.5rem + (3 - .5) * ((100vw - 32rem) / (1172 - 320)));
+		line-height: .9;
+	}
+
+	&__container {
+		position: relative;
+		height: 100%;
+		display: grid;
+		grid-template-rows: repeat(8, 1fr);
+	}
+
+	&__rows-name {
+		position: absolute;
+		top: 0;
+		left: 0;
+		transform: translate(-2.5rem);
+		width: 2rem;
+		height: 2rem;
+		display: inline-block;
+		font-size: 1rem;
+	}
+
+	&__rows {
+		position: relative;
+		max-height: 100%;
+		display: grid;
+		grid-template-columns: repeat(48, 1fr);
+		border: 1px solid rgb(0, 0, 0, .2);
+		
+		&:nth-child(odd) {
+			padding-bottom: 1rem;			
+		}
+		&:nth-child(even) {
+			padding-top: 1rem;			
+		}		
+	}	
+
+	&__row-item {
+		font-size: 1rem;
+	}
+
+	&__unit {		
+		position: relative;
+		z-index: 5;
+		&:nth-child(4n+1) {
+			border-left: 1px solid #000;		
+		}
+		
+		&:before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			background-color: rgb(21, 190, 61);
+			opacity: .1;
+			width: 100%;
+			height:100%;
+			border: 1px solid #000;			
+		}
+
+		&_active {
+			background-color: orange !important;
+			opacity: .5;
+		}
+		
+		&_no-free {
+			background-color: rgb(80, 55, 10) !important;
+		}
+
+		&_no-active {
+			background-color: gray;
+		}
+	}
+
+	&__context-menu {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 2.5rem;
+		display: flex;
+		gap: 2rem;
+		align-items: center;
+	}
+
+	&__scale-up {
+		width: 3rem;
+		height: 3rem;
+		margin: 0 0 0 1.2rem;		
+	}
+
+	&__scale-up-img {
+		width: 92%;		
+		box-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 2px 2px rgba(0,0,0,0.12), 0 4px 4px rgba(0,0,0,0.12), 0 8px 8px rgba(0,0,0,0.12), 0 16px 16px rgba(0,0,0,0.12);
+		&:hover {
+			transform: scale(1.1);
+			cursor: pointer;
+		}
+	}
+	
+	&__current-place {
+		border: 1px solid #a39c9c;
+		padding: 0 1rem;
+		border-radius: 3px;
+	}
+
+	&__place-warehouse {
+		position: relative;
+	font-size: 1.4rem;
+	height: 100%;
+	max-width: 16rem;
+	border: 1px solid #000;
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: center;
+	line-height: 1;
+	padding: 0 5px;
+	color:gray;
+	border-radius: 4px;
+	display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+	}
+
+	&__new-object {
+		position: relative;
+		border: 1px  dashed #a39c9c;
+		width: 4.5rem;
+		height: 100%;
+	}
+
+	&__delete {
+		position: absolute;
+		display: block;
+		top: 0;
+		right: 0;
+		width: 20%;
+		height: 30%;
+		line-height: .5;
+		font-size: 1.5rem;
+		transform: rotate(45deg);
+		cursor: pointer;
+	}
+
+	&__new-pallet-euro {		
+		vertical-align: end;		
+		opacity: 0;
+		z-index: 50;	
+
+		&_active {
+			opacity: 1;
+			z-index: 50;
+			background-color: rgb(79, 182, 79);	
+		}		
+	}
+
+	&____tooltip {
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+

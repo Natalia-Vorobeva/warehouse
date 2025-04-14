@@ -9,10 +9,9 @@
 	&__base {
 		flex-grow: 1;
 		display: grid;
-		column-gap: .5rem;
 
 		&_grid-with-aside {
-			grid-template-columns: 1fr 15%;
+			grid-template-columns: 1fr 25%;
 		}
 		&_grid-without-aside {
 			grid-template-columns: 1fr 6%;

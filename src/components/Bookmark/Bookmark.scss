@@ -1,0 +1,67 @@
+.bookmark {
+	position: absolute;
+	height: 2rem;
+	width: 9rem;
+	top: 0;
+	right: 0;
+	font-size: 1rem;
+	// box-sizing: content-box;
+	// background-color: rgb(226, 195, 195);
+
+	&__container {
+		background: #b00;
+		background-image: -webkit-linear-gradient(top, rgb(58, 122, 20) 40%, rgb(68, 174, 68) 90%);		
+		height: 2.5rem;
+		position:absolute;
+		top: 0;
+		right: 20px;
+		width: 2rem;
+
+		&:after{
+			content:'';
+			display: block;
+			border: 1rem solid transparent;
+			border-bottom-color: rgb(180, 179, 176);
+			position: absolute;
+			bottom: 0;
+		}
+	}
+
+	&__text {
+		position: relative;
+		z-index: 2;
+		text-transform: lowercase;
+		line-height: .5;
+		// background: linear-gradient(100deg, #47b545 23%, #6cac6c 13%, #fff );
+  // -webkit-background-clip: text;
+  // -webkit-text-fill-color: transparent;
+  // color: #a5afbe;
+	font-size: 1.5rem;
+	color: white;
+	// transform: translate(1.5rem);
+	}
+
+	&__text-container {
+		position: relative;
+	}
+
+	&__line {
+		border: 1px solid #000;
+	}
+	&__subtext {
+		font-size: 1rem;
+		color: red;
+	}
+
+	&__placement {
+		// position: absolute;
+		// top: 0;
+		// left: 0;
+		// width: 3rem;
+		// height: 20%;
+		// color: red;
+		// writing-mode: vertical-lr;
+    // text-orientation: upright;
+		// text-align: right;
+	}
+}
