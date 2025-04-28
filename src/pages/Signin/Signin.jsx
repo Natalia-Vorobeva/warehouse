@@ -3,19 +3,32 @@
 import { useState } from 'react';
 import Button from '../../components/Button/Button';
 import './Signin.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { authSelectors } from '../../store/auth/authSelectors';
+import { 
+	setIsOpenPopupAuth, setBtnAuth 
+} from '../../store/auth/authSlice.js'
 
-function Signin({ handleClickButton, btn }) {
-
+function Signin() {
+	
+	const dispatch = useDispatch()
+	// const isOpenPopupAuth = useSelector(authSelectors.getIsOpenPopupAuth)
+	const btnAuth = useSelector(authSelectors.getBtnAuth)
 
 	return (
-		<div className={`signin ${!btn ? 'signin_opacity' : ''}`}>
+		<div className={`signin ${btnAuth ? '' : 'signin_opacity'}`}>
 			{
-				btn
+				btnAuth
 					?
-					<Button handleClickButton={handleClickButton} className='' btnText='ВХОД' />
+					<Button 
+					handleClickButton={() => {
+						dispatch(setIsOpenPopupAuth(true))
+						dispatch(setBtnAuth(false))
+					}} 
+					// handleClickButton={handleClickButton} 
+					className='' btnText='ВХОД' />
 					:
 					<></>
-
 			}
 
 		</div>

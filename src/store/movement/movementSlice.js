@@ -6,26 +6,40 @@ const movementSlice = createSlice({
 	name: 'movement',
 	initialState: {
 		create: false,
-		currentId: '',
+		// currentId: '',
 		isDragging: false,
+		xTranslate: 0,
+		yTranslate: 0,
 		// пока не нужен upClass
 		upClass: false,
 		// element: {},
 		fillField: {
 
 		},
+		idPackNew: [],
 	},
 
 
 	reducers: {
-		handleCreate: (state, action) => {
+		setCreate: (state, action) => {
 			state.create = action.payload
 		},
+		setXTranslate: (state, action) => {
+			state.xTranslate = action.payload
+		},
+		setYTranslate: (state, action) => {
+			state.yTranslate = action.payload
+		},
+		setIdPackNew: (state, action) => {
+			state.idPackNew = action.payload
+			console.log('%cstate.idPackNew', 'color: purple', state.idPackNew)
+		},
+
 		// посмотреть, где нужно, а где нет currentId -
 		// section, draganddrop
-		setCurrentId: (state, action) => {
-			state.currentId = action.payload			
-		},
+		// setCurrentId: (state, action) => {
+		// 	state.currentId = action.payload			
+		// },
 		setIsDragging: (state, action) => {
 			state.isDragging = action.payload
 		},
@@ -47,10 +61,12 @@ const movementSlice = createSlice({
 })
 
 export const {
-	handleCreate,
+	setCreate,
 	handleFillField,
 	setIsDragging,
-	setCurrentId,
+	setXTranslate,
+	setYTranslate,
+	setIdPackNew,
 	setUpClass,
 	setElement
 } = movementSlice.actions

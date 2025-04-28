@@ -1,72 +1,96 @@
 import { useState, useEffect, useRef } from 'react'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+
+import { userDefinedFunctionsSelectors } from './store/userDefinedFunctions/userDefinedFunctionsSelectors.js'
+import { setIsOpenInfoPopupBlock, setDataInfoPopupBlock } from './store/userDefinedFunctions/userDefinedFunctionsSlice.js'
+
+import { authSelectors } from './store/auth/authSelectors.js'
+import { setIsLoggedIn, setBtnAuth, setIsOpenPopupAuth } from './store/auth/authSlice.js'
 
 import Main from './pages/Main/Main'
 import Signin from './pages/Signin/Signin'
 import PopupAuth from './components/PopupAuth/PopupAuth.jsx'
+import DragAndDrop from './components/DragAndDrop/DragAndDrop.jsx'
 
-import dataBlockUser from './constants/dataBlockUser.js'
 import { LIMIBERBLOCKS, LIMITERDELETEBLOCK } from './constants/limiterBlocks'
 import { dbUsers } from './constants/dbUsers.js'
 import { db } from './constants/db.js'
-import elementsFieldDev from './constants/elementsField.js'
-
+import dataBlockUser from './constants/dataBlockUser.js'
+import elementsFieldDev from './constants/elementsFieldDev.js'
 import './assets/styles/GlobalStyle.scss'
 import './App.scss'
 
+// import { handleOpenDashboard } from './store/report/reportSlice.js'
+// import { getTitle } from './store/report/reportSelectors.js'
+
 import * as api from './utils/api.js'
-import DragAndDrop from './components/DragAndDrop/DragAndDrop.jsx'
+// const title = useSelector(reportSelectors.getTitle)
+	// const handleIsOpenDashboard = () => dispatch(handleOpenDashboard(title))
 
-// localStorage.setItem('products', JSON.stringify(db))
-// localStorage.setItem('users', JSON.stringify(dbUsers))
-// localStorage.setItem('blocksUser', JSON.stringify(dataBlockUser))
-// localStorage.setItem('elementsFieldDev', JSON.stringify(elementsFieldDev))
+function App() {	
 
-function App() {
+	const dispatch = useDispatch()
+	const isLoggedIn = useSelector(authSelectors.getIsLoggedIn)
+	const btnAuth = useSelector(authSelectors.getBtnAuth)
+	const isOpenPopupAuth = useSelector(authSelectors.getIsOpenPopupAuth)
+	const dataInfoPopupBlock = useSelector(userDefinedFunctionsSelectors.getIsOpenInfoPopupBlock)
 	const [stateUser, setStateUser] = useState(dbUsers)
 	const [dbBlocksAct, setDbBlocksAct] = useState([])
-	const [elementsFieldDev, setElementsFieldDev] = useState([])
-
+	const [elementsField, setElementsField] = useState([])
 	const [products, setProducts] = useState([])
+	// const [products, setProducts] = useState([])
 	const [users, setUsers] = useState([])
-	const [isLoggedIn, setIsLoggedIn] = useState(true)
-	const [btnAuth, setBtnAuth] = useState(true)
-	const [isOpenPopupAuth, setIsOpenPopupAuth] = useState(false)
 	const [isOpenNewBlock, setIsOpenNewBlock] = useState(false)
 	const [disableNewBlock, setDisableNewBlock] = useState("")
 	const [idCounter, setIdCounter] = useState(null)
 	const [isOpenPopup, setIsOpenPopup] = useState(false)
-	const [dataInfoPopupBlock, setDataInfoPopupBlock] = useState({})
-	const [isOpenInfoPopupBlock, setIsOpenInfoPopupBlock] = useState(false)
 	const [dataProductsAndWaste, setDataProductsAndWaste] = useState({})
+	// todo добавление tooltip в объект (дополнить объект данными)
+	// то есть привести в порядок объекты в массиве
+	const [blockUserValues, setBlockUserValues] = useState({})
 
 	//  режим dev
 	const [devMode, setDevMode] = useState(false)
 	// элемент в aside в режиме dev
 	const [idElement, setIdElement] = useState(null)
-
-	const dispatch = useDispatch()
-
+	console.log('%cDATA', 'color: purple', localStorage.hasOwnProperty('products'))
+	
 	useEffect(() => {
-		let dbProducts = JSON.parse(localStorage.getItem('products'))
-		let dbUsers = JSON.parse(localStorage.getItem('users'))
-		let dbBlocksUser = JSON.parse(localStorage.getItem('blocksUser'))
-		let dbElementsField = JSON.parse(localStorage.getItem('elementsFieldDev'))
-		if (dbProducts) {
+		if (localStorage.hasOwnProperty('products')===false) {
+			localStorage.setItem('products', JSON.stringify(db))
+			let dbProducts = JSON.parse(localStorage.getItem('products'))
 			setProducts(dbProducts)
+		} else {
+			let dbProducts = JSON.parse(localStorage.getItem('products'))
+			if (dbProducts) {
+				setProducts(dbProducts)
+			}
 		}
-		if (dbUsers) {
-			setUsers(dbUsers)
+		if (localStorage.hasOwnProperty('users')===false) {
+			localStorage.setItem('users', JSON.stringify(dbUsers))
+		} else {
+			let dbUsers = JSON.parse(localStorage.getItem('users'))
+			if (dbUsers) {
+				setUsers(dbUsers)
+			}
 		}
-		if (dbBlocksUser) {
-			setDbBlocksAct(dbBlocksUser)
+		if (localStorage.hasOwnProperty('blocksUser')===false) {
+			localStorage.setItem('blocksUser', JSON.stringify(dataBlockUser))
+		} else {
+			let dbBlocksUser = JSON.parse(localStorage.getItem('blocksUser'))
+			if (dbBlocksUser) {
+				setDbBlocksAct(dbBlocksUser)
+			}
 		}
-		if (dbElementsField) {
-			setElementsFieldDev(dbElementsField)
+		if (localStorage.hasOwnProperty('elementsFieldDev')===false) {
+			localStorage.setItem('elementsFieldDev', JSON.stringify(elementsFieldDev))			
+		} else {
+			let dbElementsField = JSON.parse(localStorage.getItem('elementsFieldDev'))
+			if (dbElementsField) {
+				setElementsField(dbElementsField)
+			}
 		}
 	}, [])
-
-
 
 	// получаем отчет json
 	useEffect(() => {
@@ -111,21 +135,18 @@ function App() {
 
 	useEffect(() => {
 		if (isLoggedIn) {
-			setBtnAuth(false)
+			dispatch(setBtnAuth(false))
 		}
 	}, [isLoggedIn]);
 
 	function handleSubmit(e) {
 		e.preventDefault()
-		setIsOpenPopupAuth(!isOpenPopupAuth)
-		setIsLoggedIn(!isLoggedIn)
-	}
-	function onClickButtonAuth() {
-		setIsOpenPopupAuth(!isOpenPopupAuth)
+		dispatch(setIsOpenPopupAuth(false))
+		dispatch(setIsLoggedIn(true))
 	}
 	function onClickButtonOut() {
-		setIsLoggedIn(false)
-		setBtnAuth(!btnAuth)
+		dispatch(setIsLoggedIn(false))
+		dispatch(setBtnAuth(true))
 		localStorage.setItem('users', JSON.stringify(stateUser))
 	}
 	function handleLogin(values) {
@@ -156,14 +177,13 @@ function App() {
 	}
 
 	// Добавляем новый блок
-
 	useEffect(() => {
 		setIdCounter(dbBlocksAct.length)
 	}, [dbBlocksAct])
 
 	function handleOpenPopup() {
-		setIsOpenPopup(true)
-		setIsOpenInfoPopupBlock(false)
+		// setIsOpenPopup(true)
+		dispatch(setIsOpenInfoPopupBlock(false))
 	}
 
 	useEffect(() => {
@@ -189,14 +209,10 @@ function App() {
 			return setDisableNewBlock('disable')
 		}
 	}, [idCounter])
-	// todo добавление tooltip в объект (дополнить объект данными)
-	// то есть привести в порядок объекты в массиве
-	const [blockUserValues, setBlockUserValues] = useState({})
 
 	/* добавить новый блок */
 	function handleAddNewBlock() {
 
-		// setIsOpenInfoPopupBlock(false)
 		let array = dbBlocksAct
 		array.push(
 			{
@@ -229,7 +245,7 @@ function App() {
 
 	/* удалить блок */
 	function handleDeleteBlock(id) {
-		setIsOpenInfoPopupBlock(false)
+		dispatch(setIsOpenInfoPopupBlock(false))
 		const dataApi = JSON.parse(localStorage.getItem('blocksUser'))
 		if (id <= LIMITERDELETEBLOCK) {
 			return
@@ -249,14 +265,12 @@ function App() {
 		handleAddNewBlock()
 		setIsOpenPopup(false)
 	}
-	function onClosePopupNewBlock() {
-		setIsOpenPopup(false)
-	}
 
 	function handleInfoBlock(id) {
 		const dataPopup = dbBlocksAct.find(el => el.id == id)
-		setIsOpenInfoPopupBlock(true)
-		setDataInfoPopupBlock(dataPopup)
+		dispatch(setIsOpenInfoPopupBlock(true))
+		dispatch(setDataInfoPopupBlock(dataPopup))
+		console.log('%cDATA', 'color: purple', dataPopup)
 	}
 
 	let i = dataInfoPopupBlock
@@ -276,17 +290,13 @@ function App() {
 	}
 
 	function handleCloseInfoPopupUser() {
-		setIsOpenInfoPopupBlock(false)
+		dispatch(setIsOpenInfoPopupBlock(false))
 	}
 
 	/* настройки режима разработчика */
-
 	function onClickFooterLinkToDev() {
 		setDevMode(!devMode)
 	}
-
-	// перенос блоков из header block-user в field-sections
-	const [create, setCreate] = useState(false)
 
 	return (
 		<div className='app'>
@@ -295,18 +305,16 @@ function App() {
 			</DragAndDrop> */}
 			<div className="app__pages">
 				{
-					!isLoggedIn && btnAuth
+					isLoggedIn === false && btnAuth === true
 						?
-						<Signin btn={btnAuth} handleClickButton={onClickButtonAuth} />
+						<Signin />
 						:
 						<></>
 				}
 				{
-					isOpenPopupAuth
+					isLoggedIn === false && isOpenPopupAuth === true
 						?
 						<PopupAuth
-							isOpen={isOpenPopupAuth}
-							onClose={onClickButtonAuth}
 							buttonText='Войти'
 							onLogin={handleLogin}
 							handleSubmit={handleSubmit}
@@ -316,32 +324,26 @@ function App() {
 						<></>
 				}
 
+
 				<Main
 					devMode={devMode}
 					onClickFooterLinkToDev={onClickFooterLinkToDev}
 					db={products}
-					btn={btnAuth}
 					handleClickButton={onClickButtonOut}
 					isOpenNewBlock={isOpenNewBlock}
 					dbBlocks={dbBlocksAct}
 					disableNewBlock={disableNewBlock}
 					handleAddNewBlock={handleAddNewBlock}
-					isOpenPopup={isOpenPopup}
 					handleOpenPopup={handleOpenPopup}
 					handleDeleteBlock={handleDeleteBlock}
 					handleSubmit={handleSubmitPopupBlockUser}
-					onClosePopupNewBlock={onClosePopupNewBlock}
 					handleInfoBlock={handleInfoBlock}
-					isOpenInfoPopupBlock={isOpenInfoPopupBlock}
-					dataInfoPopupBlock={dataInfoPopupBlock}
 					handleCloseInfoPopupUser={handleCloseInfoPopupUser}
 					handleAddMoreInfoPopup={handleAddMoreInfoPopup}
 					className={disableNewBlock}
 					setBlockUserValues={setBlockUserValues}
 					setIdElement={setIdElement}
-					elementsFieldDev={elementsFieldDev}
-					create={create}
-					setCreate={setCreate}
+					elementsField={elementsField}
 					dataProductsAndWaste={dataProductsAndWaste}
 				/>
 			</div>

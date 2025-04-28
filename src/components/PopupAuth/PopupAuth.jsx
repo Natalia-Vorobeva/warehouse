@@ -2,14 +2,17 @@ import { useState } from 'react';
 import Popup from '../Popup/Popup';
 
 import './PopupAuth.scss';
+import { authSelectors } from '../../store/auth/authSelectors.js'
+import { useSelector } from 'react-redux';
+
+import { setIsOpenPopupAuth } from '../../store/auth/authSlice.js'
 
 function PopupAuth({
-	isOpen,
-	onClose,
 	onLogin,
 	handleSubmit
 }) {
 	
+	const isOpenPopupAuth = useSelector(authSelectors.getIsOpenPopupAuth)
 	const [values, setValues] = useState({
 		username: '',
 		pass: ''
@@ -20,28 +23,28 @@ function PopupAuth({
 		const name = target.name;
 		const value = target.value;
 		setValues({ ...values, [name]: value });
-		isOpen 
+		isOpenPopupAuth 
 		? 
 		setValues({ ...values, [name]: value }) 
 		:
 		// ! что есть initialStateValues
 		setValues(initialStateValues) 
-
 		// setErrors({...errors, [name]: target.validationMessage });
 		// setIsValid(target.closest('form').checkValidity());
-
-	};
+	}
+	function onClose() {
+		dispatch(setIsOpenPopupAuth(false))
+	}
 
 	return (
 		<Popup
 			name='auth'
+			isOpen={isOpenPopupAuth}
 			title='Авторизация'
-			isOpen={isOpen}
-			onClose={onClose}
 			onChange={onLogin(values)}
 			onSubmit={handleSubmit}
+			onClose={onClose}
 		>
-
 			<div className="popup-auth__input-container">
 				<input
 					type="text"

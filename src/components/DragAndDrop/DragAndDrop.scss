@@ -1,3 +1,19 @@
 .unfree {
+	box-sizing: border-box;
 	background-color: red;
+	
+	&_active-move {		
+	border: 1px solid white;
+	}
+}
+
+.unit-active {
+	background-color: orange;
+	opacity: .5;
+}
+
+.unit-no-free {
+	background-color: rgb(80, 55, 10);
+
+	
 }

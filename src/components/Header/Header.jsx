@@ -1,5 +1,7 @@
-import { useSelector, useDispatch } from 'react-redux'	
+import { useSelector, useDispatch } from 'react-redux'
 import { reportSelectors } from '../../store/report/reportSelectors.js'
+import { authSelectors } from '../../store/auth/authSelectors.js'
+
 
 import Button from '../../components/Button/Button';
 import Grid from '../../components/Grid/Grid';
@@ -7,68 +9,61 @@ import BlockUser from '../BlockUser/BlockUser';
 
 import './Header.scss';
 
-function Header({
-	handleClickButton, btn,
-	isOpenNewBlock,
+function Header({	
+
+	handleClickButton, 
 	dbBlocks,
 	disableNewBlock,
 	onClosePopupNewBlock,
-	isOpenPopup,
 	handleOpenPopup,
 	handleDeleteBlock,
 	handleSubmit,
 	handleInfoBlock,
-	dataInfoPopupBlock,
-	isOpenInfoPopupBlock,
 	handleCloseInfoPopupUser,
 	handleSubmitAddMoreInfoPopup,
 	handleAddMoreInfoPopup,
 	className,
 	setBlockUserValues,
-	setCreate
 }) {
 
 	const chapter = useSelector(reportSelectors.getChapter)
+	const btnAuth = useSelector(authSelectors.getBtnAuth)
 
 	return (
 		<div className="header">
-			{!chapter ? 
-			<div className="header__content">			
-			<div className="header__menu">
-			<div className="header__signal">☼</div>
-			<div className="header__ruler">┄</div>
-			<div className="header__remark">▼</div>
-			<div className="header__remark">select по зонам 100%</div>
-		</div>
-		<BlockUser
-			disableNewBlock={disableNewBlock}
-			dbBlocks={dbBlocks}
-			isOpen={isOpenNewBlock}
-			onClosePopupNewBlock={onClosePopupNewBlock}
-			handleDeleteBlock={handleDeleteBlock}
-			handleSubmit={handleSubmit}
-			isOpenPopup={isOpenPopup}
-			handleOpenPopup={handleOpenPopup}
-			handleInfoBlock={handleInfoBlock}
-			dataInfoPopupBlock={dataInfoPopupBlock}
-			isOpenInfoPopupBlock={isOpenInfoPopupBlock}
-			handleCloseInfoPopupUser={handleCloseInfoPopupUser}
-			handleSubmitAddMoreInfoPopup={handleSubmitAddMoreInfoPopup}
-			handleAddMoreInfoPopup={handleAddMoreInfoPopup}
-			className={className}
-			setBlockUserValues={setBlockUserValues}
-			setCreate={setCreate}
-		/>
-		</div>
-		:
-		null
+			{!chapter ?
+				<div className="header__content">
+					<div className="header__menu">
+						<div className="header__signal">☼</div>
+						<div className="header__ruler">┄</div>
+						<div className="header__remark">▼</div>
+					</div>
+					<BlockUser
+						disableNewBlock={disableNewBlock}
+						dbBlocks={dbBlocks}
+						onClosePopupNewBlock={onClosePopupNewBlock}
+						handleDeleteBlock={handleDeleteBlock}
+						handleSubmit={handleSubmit}
+						handleOpenPopup={handleOpenPopup}
+						handleInfoBlock={handleInfoBlock}
+						handleCloseInfoPopupUser={handleCloseInfoPopupUser}
+						handleSubmitAddMoreInfoPopup={handleSubmitAddMoreInfoPopup}
+						handleAddMoreInfoPopup={handleAddMoreInfoPopup}
+						className={className}
+						setBlockUserValues={setBlockUserValues}
+					/>
+				</div>
+				:
+				null
 			}
-			
+
 			<div className="header__button">
 				{
-					!btn
+					!btnAuth
 						?
-						<Button handleClickButton={handleClickButton} btnText='ВЫХОД' />
+						<Button 
+						handleClickButton={handleClickButton} 
+						btnText='ВЫХОД' />
 						:
 						<Button className={"button__opacity"} />
 				}

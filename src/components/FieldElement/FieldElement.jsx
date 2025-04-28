@@ -1,19 +1,25 @@
-// import styled from "styled-components";
-// import { animated } from "react-spring";
+import Bookmark from "../Bookmark/Bookmark"
+import scaleUp from '../../assets/images/icon-scale-up.png'
 
-import Bookmark from "../Bookmark/Bookmark";
-
-// import './FieldElement.scss';
+import './FieldElement.scss';
+import { Children } from "react";
 
 function FieldElement({
+	children,
 	text,
 	className,
-	subtext
+	subtext,
+	toggleScaleUp,
+	optionalClassName
 }) {
 
+
 	return (
-		<div className={className}>
-			<Bookmark text={text} subtext={subtext} />
+		<div className={`${className} field-element`}>
+			<Bookmark className={optionalClassName} onClick={toggleScaleUp} text={text} subtext={subtext} />
+			{
+				children
+			}			
 		</div>
 	);
 }

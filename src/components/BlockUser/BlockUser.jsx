@@ -1,7 +1,9 @@
 import { useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { movementSelectors } from '../../store/movement/movementSelectors.js'
-import { handleCreate } from '../../store/movement/movementSlice.js'
+import { setCreate } from '../../store/movement/movementSlice.js'
+import { setIsOpenPopupNewBlock, setIsOpenInfoPopupBlock } from '../../store/userDefinedFunctions/userDefinedFunctionsSlice'
+import { userDefinedFunctionsSelectors } from '../../store/userDefinedFunctions/userDefinedFunctionsSelectors.js'
 
 import PopupUserBlock from '../PopupUserBlock/PopupUserBlock'
 import AddButton from '../AddButton/AddButton'
@@ -17,29 +19,34 @@ function BlockUser({
 	handleDeleteBlock,
 	dbBlocks,
 	disableNewBlock,
-	isOpenPopup,
-	handleOpenPopup,
 	handleSubmit,
 	handleInfoBlock,
 	className,
 	type,
-	dataInfoPopupBlock,
-	isOpenInfoPopupBlock,
 	handleCloseInfoPopupUser,
 	handleSubmitAddMoreInfoPopup,
 	handleAddMoreInfoPopup,
 	setBlockUserValues
 }) {
 
-const dispatch = useDispatch()
-const create = useSelector(movementSelectors.getCreate)
-// const handleIsOpenDashboard = () => dispatch(handleOpenDashboard(title))
+	const dispatch = useDispatch()
+	const isOpenPopupNewBlock = useSelector(userDefinedFunctionsSelectors.getIsOpenPopupNewBlock)
+	const isOpenInfoPopupBlock = useSelector(userDefinedFunctionsSelectors.getIsOpenInfoPopupBlock)
+	// const handleIsOpenDashboard = () => dispatch(setCreate(title))
 	const euroRef = useRef(null)
 	function handleClickEuro(e) {
-		dispatch(handleCreate())
+		// dispatch(setCreate())
 		const id = e.target.id
 		// Не забудь изменить на false? когда поставишь на поле
 		// дальше перетаскивание
+	}
+	// 	function handleClickInfoPopup(id) {
+	// console.log('%cDATA', 'color: purple', id)
+	// }
+
+	function handleOpenPopupNewBlock() {
+		dispatch(setIsOpenPopupNewBlock(true))
+		dispatch(setIsOpenInfoPopupBlock(false))
 	}
 
 	return (
@@ -47,11 +54,16 @@ const create = useSelector(movementSelectors.getCreate)
 			<div className="block-user__list">
 				{
 					dbBlocks.map((item) => (
-						<div key={item.id} className={item.class}>
-							<div ref={euroRef} id='europallet' onClick={() => dispatch(handleCreate(true))} className={`block-user__col-1 block-user__col-1_type_${item.type} ${item.class}`}>
-								<div className="block-user__position"></div>
+						<div key={item.id} className='block-user__item'>
+							<div className="block-user__overlay"></div>
+							<div className={`block-user__standard block-user__standard_type_${item.type} ${item.class}`}>
+								<div className="block-user__overlay"></div>
+							<div ref={euroRef} id='europallet' onClick={() => dispatch(setCreate(true))} className={`block-user__col-1 block-user__col-1_type}`}>
+							{/* <div ref={euroRef} id='europallet' onClick={() => dispatch(setCreate(true))} className={`block-user__col-1 block-user__col-1_type_${item.type} ${item.class}`}> */}
+								
 							</div>
-							<div className={`block-user__col-2 block-user__col-2_type_${item.type}`}>
+							<div className={`block-user__col-2 block-user__col-2`}>
+							{/* <div className={`block-user__col-2 block-user__col-2_type_${item.type}`}> */}
 								<p
 									onClick={() => handleDeleteBlock(item.id)}
 									className='block-user__delete'>
@@ -62,7 +74,8 @@ const create = useSelector(movementSelectors.getCreate)
 									🛈
 								</p>
 							</div>
-							<Tooltip text={item.tooltip} />
+							{/* <Tooltip text={item.tooltip} /> */}
+							</div>
 						</div>
 					)
 					)
@@ -72,19 +85,18 @@ const create = useSelector(movementSelectors.getCreate)
 				onSubmit={handleSubmitAddMoreInfoPopup}
 				onAddComment={handleAddMoreInfoPopup}
 				isOpen={isOpenInfoPopupBlock}
-				dataInfoPopupBlock={dataInfoPopupBlock}
 				onClose={handleCloseInfoPopupUser}
 			/>
 			<AddButton
 				disableNewBlock={disableNewBlock}
-				onClick={handleOpenPopup}
+				onClick={handleOpenPopupNewBlock}
 				className={`block-user__add ${className}`} />
 			<PopupNewBlockUser
 				title={"Новый "}
 				btnText='Сохранить'
 				type="submit"
 				onClosePopupNewBlock={onClosePopupNewBlock}
-				isOpenPopup={isOpenPopup}
+				isOpenPopup={isOpenPopupNewBlock}
 				handleSubmit={handleSubmit}
 				setBlockUserValues={setBlockUserValues}
 			/>

@@ -23,6 +23,11 @@ dist-ssr
 *.sln
 *.sw?
 # сделать 
+
+# доработать попапы на закрытие escape и Popup__container (popup
+# newBlockUser и infoPopup)/ auth-попап - закрытие на add-button
+
+
 # Popup INFO-block - в dev возможность менять основной комментарий, например, "стандарт"
 # стилизация Info-popup (PopupUserBlock)
 # реализовать удаление комментария

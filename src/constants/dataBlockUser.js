@@ -2,7 +2,7 @@ const dataBlockUser = [
 	{
 		id: 1,
 		type: 'pallet',
-		class: 'block-user__item block-user__standard-1',
+		class: 'block-user__standard_standard-1',
 		tooltip: 'Европоддон',
 		pallet: true,
 		button: '',
@@ -16,7 +16,7 @@ const dataBlockUser = [
 	{
 		id: 2,
 		type: 'pallet',
-		class: 'block-user__item block-user__standard-2',
+		class: 'block-user__standard block-user__standard_standard-2',
 		tooltip: 'Американский поддон',
 		pallet: true,
 		button: '',
@@ -30,7 +30,7 @@ const dataBlockUser = [
 	{
 		id: 3,
 		type: 'no-pallet',
-		class: 'block-user__item block-user__standard-3',
+		class: 'block-user__standard block-user__standard_standard-3',
 		tooltip: 'Клетка',
 		pallet: false,
 		button: '',
@@ -44,7 +44,7 @@ const dataBlockUser = [
 	{
 		id: 4,
 		type: 'no-pallet',
-		class: 'block-user__item block-user__standard-4',
+		class: 'block-user__standard block-user__standard_standard-4',
 		tooltip: 'Сетка',
 		pallet: false,
 		button: '',

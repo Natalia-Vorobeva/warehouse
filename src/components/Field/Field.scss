@@ -3,6 +3,8 @@
 
 .field {	
 	max-height: 100%;
+	background-image: -webkit-linear-gradient(top, rgb(145, 157, 139) 40%, rgb(192, 208, 192) 90%);		
+
 
 	&__container {
 		height: 100%;
@@ -26,12 +28,20 @@
 		// font-size: 20px;
 		margin: 0 -.5rem 0 0;
 		height: 100%;
+
+		&_style-left {			
+		grid-template-columns: 30% 1fr 10%;
+		}
+		&_style-right {			
+		grid-template-columns: 10% 1fr 30%;
+		}
 	}
 
 	&__col-1 {
+		position: relative;
 		display: grid;
-		grid-template-rows: repeat(3 1fr);
-		// font-size: 1rem;
+		grid-template-rows: repeat(4 1fr);
+		font-size: 1rem;
 		
 	}
 
@@ -45,46 +55,51 @@
 		position: relative;
 		display: grid;
 		grid-template-rows: 1fr 10%;
+		
+		&_style-bottom {
+			grid-template-rows: 1fr 25%;
+		}
 	}
 
 	&__container-bottom {
-		border: 1px solid #000;
+		position: relative;
 		display: grid;
-		grid-template-columns: 35% 35% 1fr;
+		grid-template-columns: repeat(3, 1fr);
+		font-size: 1rem;
 	}
 
-	// &__container-unformatted {
+	&__container-unformatted {
 	// 	background-color: red;
-	// 	position: relative;
+		position: relative;
 	// 	height: 100%;
-	// }
+	}
 
-	// &__wrapper-unformatted {
-	// 	position: relative;
-	// }
+	&__wrapper-unformatted {
+		position: relative;
+	}
 
-	// &__container-acceptance {
-	// 	position: relative;
-	// }
+	&__container-acceptance {
+		position: relative;
+	}
 	&__acceptance {
 		position: relative;
 		// background-color: $color-accent-cornflowers;
-		height: 15%;
+		// height: 15%;
 	}
 	&__placement {
 		position: relative;
-		height: 40%;
+		// height: 40%;
 		// background-color: $color-accent-spring;
 	}
 	&__unformatted {
 		position: relative;
 		// background-color: $black-button-hover;
-		font-size: .5rem;
+		// font-size: .5rem;
 	}
 	&__delivery {
 		position: relative;
 		// background-color: $bg-spring;
-		height: 30%;
+		// height: 30%;
 	}
 
 	&__grid {

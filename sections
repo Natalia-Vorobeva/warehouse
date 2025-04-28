@@ -1,0 +1,340 @@
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { movementSelectors } from '../../store/movement/movementSelectors.js'
+
+import { CATALOG, ROWS, UNIT, LEVEL, REVERSEDlEVEL } from '../../constants/dataSection.js'
+
+import scaleUpImg from '../../assets/images/icon-scale-up.png'
+
+import './Sections.scss'
+// import useDraggable from '../../hooks/useDraggable.js'
+// import useDragging from '../../hooks/useDragging.js'
+import { useSelector, useDispatch } from 'react-redux'
+import { setCreate, setIsDragging } from '../../store/movement/movementSlice.js'
+
+import DragAndDrop from '../DragAndDrop/DragAndDrop.jsx'
+import Bookmark from '../Bookmark/Bookmark.jsx'
+
+import moveOn from '../../assets/images/moveon-2.webp'
+
+
+
+function Sections({ toggleScale }) {
+
+	const isDragging = useSelector(movementSelectors.getIsDragging)
+	const dispatch = useDispatch()
+	const create = useSelector(movementSelectors.getCreate)
+	const upClass = useSelector(movementSelectors.getUpClass)
+	const [width, setWidth] = useState(window.innerWidth)
+	// ������� � ��������-����
+	const [idPack, setIdPack] = useState([])
+	const [idPackNew, setIdPackNew] = useState([])
+	const [selectedObject, setSelectedObject] = useState([])
+	const [currentPlace, setCurrentPlace] = useState({})
+	// ������� ������ unit ��� ��������� ������� ���������������� �������
+	const [sizeUnit, setSizeUnit] = useState({
+		width: 0,
+		height: 0
+	})
+	document.oncontextmenu = function (e) {
+		e.preventDefault()
+	}
+
+
+
+
+	
+	let dataIdPackNew = JSON.parse(localStorage.getItem('products'))
+	// useEffect(() => {
+		
+		localStorage.setItem('idPackNew', JSON.stringify(idPackNew))
+		// setIdPackNew(localStorage.setItem('idPackNew', JSON.stringify(idPackNew)))
+	// }, [])
+
+	useEffect(() => {
+		let dbIdPackNew = JSON.parse(localStorage.getItem('idPackNew'))
+		if (dbIdPackNew) {
+			setIdPackNew(dbIdPackNew)
+		}
+	}, [])
+	// localStorage.setItem('blocksUser', JSON.stringify(dataBlockUser))
+
+
+
+
+
+
+
+
+
+	const refRows = useRef(null)
+	const refUnit = useRef(null)
+	// div new-object ��� initialCoord
+	const newObjRef = useRef(null)
+	// ������������� ������
+	const ref = useRef(null)
+
+	useEffect(() => {
+		const handleResize = (event) => {
+			setWidth(event.target.innerWidth)
+		}
+		window.addEventListener('resize', handleResize)
+		const { width, height } = refUnit.current.getBoundingClientRect()
+		setSizeUnit({ width, height })
+		return () => {
+			window.removeEventListener('resize', handleResize)
+		}
+	}, [width])
+
+
+	function handleClick(e) {
+		e.preventDefault()
+		const data = e.target
+		let obj = {}
+		obj['id'] = data.id
+		if (isDragging === false) {
+			if (data.dataset.free == 'true') {
+				// ���� ������
+				if (data.className.includes('unit-active')) {
+					// ������� ����� � �� ������ ������
+					data.classList.remove("unit-active")
+					setIdPack(idPack.filter(i => i.id !== data.id))
+				} else {
+					// ���� ��������� � �� ������, ������ ������ 
+					data.className += " unit-active"
+					if (idPack.length === 0) {
+						setIdPack([...idPack, obj])
+					} else if (!idPack.find(i => i.id == data.id)) {
+						setIdPack([...idPack, obj])
+					}
+				}
+			} else if (data.dataset.free == 'false') {
+				// ���� ������� 
+				if (data.className.includes('unfree')) {
+					data.classList.remove("unfree")
+					//  ������ ����������
+					data.className += " unit-no-free"
+					
+					if (selectedObject.length === 0) {
+						setSelectedObject([...selectedObject, obj])
+					} else if (!selectedObject.find(i => i.id == data.id)) {
+						setSelectedObject([...selectedObject, obj])
+					}
+					// setSelectedObject(selectedObject.filter(i => i.id !== data.id))
+				} else {
+					// setIdPack(idPack.filter(i => i.id !== data.id))
+					data.classList.remove("unit-no-free")
+					setSelectedObject(selectedObject.filter(i => i.id !== data.id))
+					data.className += " unfree"
+				}
+			}
+			setCurrentPlace(obj)
+		}
+	}
+
+	function handleMouseUpSeveral(e) {
+		e.preventDefault()
+		const data = e.target
+		if (isDragging === true) {
+			let obj = {}
+			obj['id'] = data.id
+			setCurrentPlace(obj)
+			
+		}
+		if (data.className.includes('sections__unit')) {
+
+			if (!data.className.includes('unfree')) {
+				data.dataset.free = !data.dataset.free
+				data.className += " unfree"
+				if (idPackNew.length === 0) {
+					setIdPackNew([...idPackNew, obj])
+					localStorage.setItem('idPackNew', JSON.stringify([...idPackNew, obj]))
+				} else {
+					setIdPackNew([...idPackNew, obj])
+					localStorage.setItem('idPackNew', JSON.stringify([...idPackNew, obj]))
+				}
+			} else {
+return 
+			}
+		} else { return }
+	}
+
+	function handleClickMove() {
+		// let obj = {}
+		// obj['id'] = data.id
+		// // setCurrentPlace(obj)
+		// idPackNew.length === 0
+		// 	?
+		// 	setIdPackNew([...idPack, obj])
+		// 	:
+		// 	!idPack.find(i => i.id == data.id) ?
+		// 		setIdPackNew([...idPack, obj])
+		// 		:
+		// 		setIdPackNew(idPack.filter(i => i.id !== data.id))
+
+	}
+
+
+	// todo 				{/* ������� ���� ��� ������� �����, �� �������� � sections__place-warehouse */}
+	//  todo ������� ������ ����������� ����� � ��������� �� localStorage? �������� ��� ������������ � ��������� ������
+
+	return (
+		<div className="sections">
+			<div className="sections__context-menu">
+				<div className="sections__scale-up">
+					<img
+						onClick={toggleScale}
+						src={scaleUpImg} alt="������������� �����" className="sections__scale-up-img" />
+				</div>
+				<div id="base" ref={newObjRef} className="sections__new-object">
+					{/* todo ����������� ����������� ��������� ������� � ����������, 
+					�� ��������� ����������� �������� */}
+					{
+						!create && !isDragging ? <p className="section__new-info">�����</p> : ''
+					}
+					{create &&
+						<div onClick={() => {
+							dispatch(setCreate(false))
+							dispatch(setIsDragging(false))
+						}
+						}
+							className="sections__delete">+</div>
+					}
+					<DragAndDrop
+						handleMouseUp={handleMouseUp}>
+						<div
+							ref={ref}
+							style={{
+								position: "absolute",
+								width: sizeUnit.width,
+								height: sizeUnit.height,
+								x: 0,
+								y: 0
+							}}
+							className={`sections__new-pallet-euro ${!create ? '' : 'sections__new-pallet-euro_active'}
+						 `}
+						>
+						</div>
+					</DragAndDrop>
+				</div>
+				<div onClick={handleClickMove} className="sections__move">
+					<img src={moveOn} alt="�����������" className="sections__move-img" />
+				</div>
+				<p className="sections__current-place">{currentPlace.id}</p>
+				<div className="sections__place-warehouse">
+					{idPack.map((el) => {
+						return `  ${el.id} `
+					})}
+				</div>
+				<div className="sections__place-warehouse sections__place-warehouse_new">
+					{idPackNew.map((el) => {
+						return `  ${el.id} `
+					})}
+				</div>
+				<div className="sections__place-warehouse sections__place-warehouse_selected">
+					{idPackNew.map((el) => {
+						return `  ${el.id} `
+					})}
+				</div>
+
+				<Bookmark
+					// onClick={toggleScaleUp} 
+					text='�����' />
+			</div >
+			<div className="sections__catalog">
+				{
+					CATALOG.map((item, index) => {
+						const iLevel = index % 2
+						return <div key={index} className="sections__row">
+							<div className="sections__levels">
+								{iLevel === 0 ?
+									REVERSEDlEVEL.map((item, index) => {
+										return <div key={`${index}/levelreversed`} className="sections__level">{item}</div>
+									})
+									:
+									LEVEL.map((item, index) => {
+										return <div key={`${index}/level`} className="sections__level">{item}</div>
+									})
+								}
+							</div>
+						</div>
+					})
+				}
+			</div>
+			{/* ������������ ������ units �� ������  */}
+			{/* https://habr.com/ru/articles/810205/     - � �������� � ������������� ������������ */}
+			<div className="sections__container">
+				{ROWS
+					? Array.from({ length: ROWS }).map((_, index) => {
+						let i = CATALOG[index]
+						let levelUnit = (index + 2) % 2
+						// let l = 
+						return (
+							<div ref={refRows} key={CATALOG[index]} id={CATALOG[index]} data-free className="sections__rows" >
+								<span className="sections__rows-name"></span>
+								<span className="sections__rows-name"></span>
+								<span className="sections__rows-name"></span>
+								<span key={`${index}/level`} className="sections__rows-name">{i}</span>
+								{UNIT ? Array.from({ length: UNIT, i, levelUnit })
+									.map((_, index) => {
+										return (
+											<div
+												ref={refUnit}
+												data-free
+												className="sections__unit"
+												onClick={(e) => handleClick(e)}
+												id={`${i}${levelUnit === 0 ? 4 : 1}-${index + 1}`} key={`${i}${levelUnit === 0 ? 4 : 1}-${index + 1}`} >
+											</div>
+										)
+									})
+									: null}
+								{UNIT ? Array.from({ length: UNIT, i, levelUnit })
+									.map((_, index) => {
+										return (
+											<div
+												ref={refUnit}
+												data-free
+												className="sections__unit"
+												onClick={(e) => handleClick(e)}
+												id={`${i}${levelUnit === 0 ? 3 : 2}-${index + 1}`} key={`${i}${levelUnit === 0 ? 3 : 2}-${index + 1}`} ></div>
+											// id={`${i}2-${index + 1}`} key={`${i}2-${index + 1}`} ></div>
+										)
+									})
+									: null}
+								{UNIT ? Array.from({ length: UNIT, i, levelUnit })
+									.map((_, index) => {
+										return (
+											<div
+												ref={refUnit}
+												data-free
+												className="sections__unit"
+												onClick={(e) => handleClick(e)}
+												id={`${i}${levelUnit === 0 ? 2 : 3}-${index + 1}`} key={`${i}${levelUnit === 0 ? 2 : 3}-${index + 1}`} ></div>
+											// id={`${i}3-${index + 1}`} key={`${i}3-${index + 1}`}></div>
+										)
+									})
+									: null}
+								{UNIT ? Array.from({ length: UNIT, i, levelUnit })
+									.map((_, index) => {
+										return (
+											<div
+												ref={refUnit}
+												data-free
+												className="sections__unit"
+												onClick={(e) => handleClick(e)}
+												id={`${i}${levelUnit === 0 ? 1 : 4}-${index + 1}`} key={`${i}${levelUnit === 0 ? 1 : 4}-${index + 1}`} ></div>
+											// id={`${i}4-${index + 1}`} key={`${i}4-${index + 1}`}>
+											// </div>
+										)
+									})
+									: null}
+							</div>
+						)
+					})
+					: null
+				}
+			</div>
+		</div >
+	)
+}
+
+export default Sections

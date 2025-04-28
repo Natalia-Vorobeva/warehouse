@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import Popup from '../Popup/Popup';
+
+import { setIsOpenPopupNewBlock } from '../../store/userDefinedFunctions/userDefinedFunctionsSlice'
 import './PopupNewBlockUser.scss';
+import { useDispatch, useSelector } from 'react-redux';
 
 function PopupNewBlockUser({
 	title,
@@ -11,6 +14,9 @@ function PopupNewBlockUser({
 	onClosePopupNewBlock,
 	setBlockUserValues
 }) {
+
+	const dispatch = useDispatch()
+	// const isPopupNewBlock = useSelector(userDefinedFunctionsSelectors.getIsPopupNewBlock)
 
 	const [values, setValues] = useState({
 		// ! разобраться с типами значений
@@ -51,9 +57,13 @@ function PopupNewBlockUser({
 		setBlockUserValues(values)
 	}, [values])
 
+	function onClosePopupNewBlock() {
+		dispatch(setIsOpenPopupNewBlock(false))
+	}
+
 	return (
 		<Popup
-			name='auth'
+			name='new-block-user'
 			isOpen={isOpenPopup}
 			title={title}
 			onSubmit={handleSubmit}

@@ -1,4 +1,22 @@
-.field__element {
-	width: 100%;
-	background-color: red;
+.field-element {
+	position: relative;
+	display: flex;
+	// border: 1px solid #000;
+
+	&__context-menu {
+		// border: 1px solid #000;
+		font-size: .8rem;
+	}
+
+	&__scale-up {
+		// width: 20%;
+		aspect-ratio: 1;
+		
+		height: 3rem;
+	}
+
+	&__scale-up-img {
+		// height: 2.3rem;
+		width: 100%;
+	}
 }

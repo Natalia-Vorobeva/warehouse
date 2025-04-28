@@ -11,10 +11,9 @@
 	height: 100vh;
 	background-color: $bg-web;
 	opacity: .5;
-	z-index: 100;
+	z-index: 90;
 
 	&_opacity {
-		// pointer-events: none;
 		opacity: .3;
 	}
 

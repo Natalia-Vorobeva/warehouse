@@ -20,7 +20,7 @@ const elementsFieldDev = [
 		hPercent: 20,
 		w: 0,
 		h: 0
-	},
+	}
 	// {
 	// 	id: 3,
 	// 	position: "column",

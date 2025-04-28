@@ -6,20 +6,19 @@ import Header from '../../components/Header/Header';
 import './Main.scss';
 
 function Main({
-	handleClickButton, btn, db,
+	
+	handleClickButton, 
+	db,
 	onClickFooterLinkToDev,
 	devMode,
 	dbBlocks,
 	handleOpenPopup,
 	onClosePopupNewBlock,
-	isOpenPopup,
 	handleSubmit,
 	disableNewBlock,
 	isOpenNewBlock,
 	handleDeleteBlock,
 	handleInfoBlock,
-	dataInfoPopupBlock,
-	isOpenInfoPopupBlock,
 	handleCloseInfoPopupUser,
 	handleSubmitAddMoreInfoPopup,
 	handleAddMoreInfoPopup,
@@ -27,8 +26,6 @@ function Main({
 	setBlockUserValues,
 	setIdElement,
 	elementsFieldDev,
-	create,
-	setCreate,
 	dataProductsAndWaste
 }) {
 
@@ -42,7 +39,8 @@ function Main({
 
 	return (
 		<div className="main">
-			<Header btn={btn}
+			<Header 			
+
 				handleClickButton={handleClickButton}
 				btnText='ВЫХОД'
 				isOpenNewBlock={isOpenNewBlock}
@@ -50,25 +48,20 @@ function Main({
 				dbBlocks={dbBlocks}
 				disableNewBlock={disableNewBlock}
 				handleDeleteBlock={handleDeleteBlock}
-				isOpenPopup={isOpenPopup}
 				handleOpenPopup={handleOpenPopup}
 				handleSubmit={handleSubmit}
 				handleInfoBlock={handleInfoBlock}
-				dataInfoPopupBlock={dataInfoPopupBlock}
-				isOpenInfoPopupBlock={isOpenInfoPopupBlock}
 				handleCloseInfoPopupUser={handleCloseInfoPopupUser}
 				handleSubmitAddMoreInfoPopup={handleSubmitAddMoreInfoPopup}
 				handleAddMoreInfoPopup={handleAddMoreInfoPopup}
 				className={className}
 				setBlockUserValues={setBlockUserValues}
-				setCreate={setCreate}
 			/>
 
 			<div className={`main__base ${devMode ? "main__base_grid-to-dev" : visibleAside ? "main__base_grid-with-aside" : "main__base_grid-without-aside"} `}>
 				<Field
 					devMode={devMode}
 					elementsFieldDev={elementsFieldDev}
-					create={create}
 					dataProductsAndWaste={dataProductsAndWaste}
 
 				/>

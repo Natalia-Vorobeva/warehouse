@@ -4,10 +4,12 @@ import { combineReducers } from '@reduxjs/toolkit'
 import authSlice from './auth/authSlice'
 import reportSlice from './report/reportSlice'
 import movementSlice from './movement/movementSlice'
+import userDefinedFunctionsSlice from './userDefinedFunctions/userDefinedFunctionsSlice'
 // import formOrderValidationSlice from './formOrderValidation/formOrderValidation'
 
 export const rootReducer = combineReducers({
   auth: authSlice,
 	report: reportSlice,
-	movement: movementSlice
+	movement: movementSlice,
+	userDefinedFunctions: userDefinedFunctionsSlice
 })

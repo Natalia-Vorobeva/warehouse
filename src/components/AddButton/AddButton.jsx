@@ -4,9 +4,12 @@ function AddButton({ className,
 	onClick, 
 	disableNewBlock
  }) {		
+	
 
 return (
-<div onClick={onClick} className={`${className} `}>
+<div 
+onClick={onClick} 
+className={`${className} `}>
 	<div className={`add-button ${disableNewBlock}`}>
 	</div>	
 </div>

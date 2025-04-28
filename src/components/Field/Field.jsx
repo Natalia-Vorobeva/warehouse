@@ -12,27 +12,51 @@ import DraggableComponent from '../DraggableComponent/DraggableComponent'
 import ContextMenu from '../ContextMenu/ContextMenu'
 import Sections from '../Sections/Sections'
 import Workshop from '../Workshop/Workshop'
+import FieldElementContent from '../FieldElementContent/FieldElementContent.jsx'
 
-function Field({ devMode, elementsFieldDev, create,
-	dataProductsAndWaste }) {
+function Field({
+	devMode,
+	dataProductsAndWaste
+}) {
 
 	const chapter = useSelector(reportSelectors.getChapter)
-
-	// const layout = [
-	// 	{ i: "a", x: 0, y: 0, w: 2, h: 1 },
-	// 	{ i: "b", x: 2, y: 0, w: 2, h: 1 },
-	// 	{ i: "c", x: 4, y: 0, w: 2, h: 1 },
-	// 	{ i: "d", x: 6, y: 0, w: 2, h: 1 },
-	// 	{ i: "e", x: 0, y: 2, w: 2, h: 1 }
-	// ];
-	// const [indicator, setIndicator] = useState('field__pallet_indicator')
-	// console.log('%cDATA', 'color: purple', indicator)
-
-
 	const [scaleUp, setScaleUp] = useState(true)
+	const [gridStyleLeft, setGridStyleLeft] = useState('')
+	const [gridStyleRight, setGridStyleRight] = useState('')
+	const [gridStyleBottom, setGridStyleBottom] = useState('')
 
-	function toggleScaleUp() {
+	function toggleScaleUp(data) {
+		if (data == 'Склад профиля' || data === 'Склад мех. обработки' || data === 'Склад алюминия' || data.includes('Отходы')) {
+			if (gridStyleLeft == '') {
+				setGridStyleLeft('_style-left')
+				setGridStyleRight('')
+				setGridStyleBottom('')
+			} else {
+				setGridStyleLeft('')
+			}
+		} else if (data.includes('Приемка-s') || data.includes('выдача-s') || data.includes('Негабарит')) {
+			if (gridStyleBottom == '') {
+				setGridStyleBottom('_style-bottom')
+				setGridStyleLeft('')
+				setGridStyleRight('')
+			} else {
+				setGridStyleBottom('')
+			}
+		} else if (data.includes('Приемка-m') || data.includes('выдача-m')) {
+			if (gridStyleRight == '') {
+				setGridStyleRight('_style-right')
+				setGridStyleLeft('')
+				setGridStyleBottom('')
+			} else {
+				setGridStyleRight('')
+			}
+		}
+	}
+	function toggleScale() {
 		setScaleUp(!scaleUp)
+		setGridStyleLeft('')
+		setGridStyleRight('')
+		setGridStyleBottom('')
 	}
 
 	return (
@@ -49,32 +73,52 @@ function Field({ devMode, elementsFieldDev, create,
 								<div className="field__field-storage">
 									{scaleUp
 										?
-										<div className="field__storage">
-											<div className="field__col-1">
-												<FieldElement className="field__placement bookmark__placement" text="Склад" subtext=" профиля" />
-												<FieldElement className="field__placement" text="Склад " subtext=" мех.обработки" />
-												<FieldElement className="field__placement" text="Склад" subtext=" алюминия" />
-												{/* <FieldElement className="field__acceptance" text="Приемка" />
-												<FieldElement className="field__delivery" text="Выдача" /> */}
-											</div>
-											<div className="field__warehouse">
-												<Sections create={create} toggleScaleUp={toggleScaleUp} />
-												<div className="field__container-bottom">
-												<FieldElement className="field__acceptance" text="Приемка" />
-												<FieldElement className="field__delivery" text="Выдача" />
-												<FieldElement className="field__unformatted" text="Негабарит" />
+										<div className={`field__storage field__storage${gridStyleLeft}${gridStyleRight}`}>
 
+											<div className="field__col-1">
+												<FieldElementContent
+													name='Отходы'
+													toggleScaleUp={toggleScaleUp} optionalClassName='' className="field__placement" text="Отходы" />
+												<FieldElementContent
+													name='Склад алюминия'
+													toggleScaleUp={toggleScaleUp} optionalClassName='' className="field__placement" text="Склад" subtext=" алюминия" />
+												<FieldElementContent
+													name='Склад мех. обработки'
+													toggleScaleUp={toggleScaleUp} optionalClassName='' className="field__placement" text="Склад" subtext=" мех.обработки" />
+												<FieldElementContent
+													name='Склад профиля'
+													toggleScaleUp={toggleScaleUp} className="field__placement" optionalClassName='' text="Склад" subtext=" профиля" />
+											</div>
+											<div className={`field__warehouse field__warehouse${gridStyleBottom}`}>
+												<Sections toggleScale={toggleScale} />
+												<div className="field__container-bottom">
+													{/* <FieldElement toggleScaleUp={toggleScaleUp} className="field__delivery" optionalClassName='center' text="выдача-s" /> */}
+													<FieldElementContent
+														name='Выдача-s'
+														toggleScaleUp={toggleScaleUp} className="field__delivery" optionalClassName='center' text="Выдача-s" />
+													{/* <FieldElement toggleScaleUp={toggleScaleUp} className="field__acceptance" optionalClassName='center' text="Приемка-s" /> */}
+													<FieldElementContent
+														name='Приемка-s'
+														toggleScaleUp={toggleScaleUp} className="field__acceptance" optionalClassName='center' text="Приемка-s" />
+													<FieldElementContent
+														name='Негабарит'
+														id='informatted' toggleScaleUp={toggleScaleUp} optionalClassName='center' className="field__unformatted" text="Негабарит" />
+													{/* <FieldElement id='informatted' toggleScaleUp={toggleScaleUp} optionalClassName='center' className="field__unformatted" text="Негабарит" /> */}
 												</div>
 											</div>
 											<div className="field__col-2">
-												<FieldElement className="field__acceptance" text="Приемка" />
-												<FieldElement className="field__delivery" text="Выдача" />
+												{/* <FieldElement toggleScaleUp={toggleScaleUp} optionalClassName='' className="field__acceptance" text="Приемка-m" /> */}
+												<FieldElementContent
+													// name='Приемка-m'
+													toggleScaleUp={toggleScaleUp} optionalClassName='' className="field__acceptance" text="Приемка-m" />
+												{/* <FieldElement toggleScaleUp={toggleScaleUp} optionalClassName='' className="field__delivery" text="выдача-m" /> */}
+												<FieldElementContent
+													// name='Выдача-m'
+													toggleScaleUp={toggleScaleUp} optionalClassName='' className="field__delivery" text="Выдача-m" />
 											</div>
-
-
 										</div>
 										:
-										<Sections toggleScaleUp={toggleScaleUp} />
+										<Sections toggleScale={toggleScale} />
 									}
 								</div>
 

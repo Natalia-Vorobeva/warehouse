@@ -1,17 +1,19 @@
 import { useEffect, useState, useRef } from 'react';
+import { userDefinedFunctionsSelectors } from '../../store/userDefinedFunctions/userDefinedFunctionsSelectors.js'
+
 import AddButton from '../AddButton/AddButton';
 import './PopupUserBlock.scss';
 import Button from '../Button/Button';
+import { useSelector } from 'react-redux';
 
 function PopupUserBlock({
-	dataInfoPopupBlock,
 	isOpen,
 	onClose,
 	onClick,
 	onAddComment,
-
-
 }) {
+
+	const dataInfoPopupBlock = useSelector(userDefinedFunctionsSelectors.getDataInfoPopupBlock)
 	// нужен динамический класс
 	// или style в теге для props: w, h, aspect-ratio
 
@@ -30,7 +32,6 @@ function PopupUserBlock({
 		}
 	}
 
-
 	useEffect(() => {
 		if (isOpen) {
 			document.addEventListener('keydown', handleEscClose)
@@ -47,7 +48,7 @@ function PopupUserBlock({
 	}
 
 	const [values, setValues] = useState('')
-	
+
 	const handleChange = (e) => {
 		const target = e.target
 		const value = target.value

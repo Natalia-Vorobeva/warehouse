@@ -3,12 +3,16 @@ const getCurrentId = state => state.movement.currentId
 const getFillField = state => state.movement.fillField
 const getIsDragging = state => state.movement.isDragging
 const getUpClass = state => state.movement.upClass
-// const getElement = state => state.movement.element
+const getIdPackNew = state => state.movement.idPackNew
+const getXTranslate = state => state.movement.xTranslate
+const getYTranslate = state => state.movement.yTranslate
 
 
 export const movementSelectors = {
 	getCreate,
-	getCurrentId,
+	getXTranslate,
+	getYTranslate,
+	getIdPackNew,
 	getFillField,
 	getIsDragging,
 	getUpClass,

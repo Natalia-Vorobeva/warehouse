@@ -1,4 +1,9 @@
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { authSelectors } from '../../store/auth/authSelectors'
+import { 
+	setIsOpenPopupAuth 
+} from '../../store/auth/authSlice.js'
 
 import AddButton from '../AddButton/AddButton';
 import Button from '../Button/Button';
@@ -7,11 +12,16 @@ import './Popup.scss';
 
 function Popup({
 	title, btnText, name,
-	isOpen, onClose, children,
+	children,
 	onSubmit,
+	isOpen,
+	onClose,
 	type,
 	disabled
 }) {
+
+	const dispatch = useDispatch()
+
 	useEffect(() => {
 		if (isOpen) {
 			document.addEventListener('keydown', handleEscClose)
@@ -23,15 +33,17 @@ function Popup({
 
 	function handleEscClose(evt) {
 		if (evt.key === 'Escape') {
-			onClose();
+			dispatch(setIsOpenPopupAuth(false))
 		};
 	};
 
 	function mouseDownClose(evt) {
 		if (evt.target.classList.contains('popup__container')) {
-			onClose();
+			dispatch(setIsOpenPopupAuth(false))
 		};
 	}
+
+	
 
 	return (
 		<div className={`popup popup_form_${name} ${isOpen ? "popup_opened" : ""}`}
@@ -53,7 +65,6 @@ function Popup({
 							className={`button__save ${disabled}`}
 							name="button2"
 							btnText={btnText || 'Вход'}
-							// disabled={disabled}
 						/>
 					}
 					<div className="popup__close" type="button" name="button1">
