@@ -1,4 +1,3 @@
-const getChapter = state => state.report.chapter
 const getDashboard = state => state.report.dashboard
 const getTitle = state => state.report.title
 const getChartTabs = state => state.report.chartTabs
@@ -7,7 +6,6 @@ const getStatisticsChartComponent = state => state.report.chartComponent
 const getStatisticsComponent = state => state.report.statisticsComponent
 
 export const reportSelectors = {
-	getChapter,
 	getDashboard,
 	getTitle,
 	getChartTabs,

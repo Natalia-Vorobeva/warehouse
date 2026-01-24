@@ -1,141 +1,382 @@
+// =========== ОСНОВНЫЕ СТИЛИ POPUP ===========
 .popup {
-	position: fixed;
+  position: fixed;
   width: 100vw;
   height: 100vh;
-	border: 1px solid #000;
-  background: rgba(0, 0, 0, .5);
+  background: rgba(0, 0, 0, 0.85);
   top: 0;
   left: 0;
   visibility: hidden;
-  transition: all .4s linear;
   opacity: 0;
-	z-index: 100;	
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-	&__container {
-		min-height: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}	
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+  }
 
-	&__content {
-		position: relative;
-		width: 43rem;
-		color: #000;
-		background-color: #fff;
-		box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
-		border-radius: 10px;
-		box-sizing: border-box;
-		padding: 3.6rem;
+  &__content {
+    position: relative;
+    background: linear-gradient(145deg, #f5f5f5 0%, #e8e8e8 100%);
+    border-radius: 16px;
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.25),
+      0 0 0 1px rgba(255, 255, 255, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    max-width: 90%;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(20px) scale(0.95);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    overflow: hidden;
 
-		@media (max-width:530px){
-				max-width: 282px;
-				padding: 25px 22px;
-		}
-	}	
+    &_size_small {
+      width: 400px;
+    }
 
-	&_opened {
-		display: block;
-		visibility: visible;
-		opacity: 1;
-		z-index: 200;
-	}
+    &_size_medium {
+      width: 500px;
+    }
 
-	@media (max-width:530px){
-			width: 20px;
-			height: 20px;		
-	}
+    &_size_large {
+      width: 600px;
+    }
+  }
 
-	&__title {
-		font-style: normal;
-		font-size: 2.4rem;
-		line-height: 1.2;
-		margin: 0 0 4.1rem 0;
-		padding: 4rem 0 0 0;
-		text-align: center;
+  &_opened {
+    visibility: visible;
+    opacity: 1;
 
-		&_size-margin_small {
-			margin-bottom: 13px;
-		}
-	}
-	
-	@media (max-width:425px){
-			font-size: 18px;
-			margin-bottom: 75px;
-	}
+    .popup__content {
+      transform: translateY(0) scale(1);
+    }
+  }
 
-	&__close {
-		position: absolute;
-		top: 2%;
-		right: 2%;
-		width: 4rem;
-		height: 4rem;
-		padding: 0;
-		background-color: rgba(0, 0, 0, 0);
-		border: none;
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 28px 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background: linear-gradient(145deg, #e6e6e6 0%, #f0f0f0 100%);
+    position: relative;
 
-		&:hover {
-			transition: opacity 0.2s ease;
-			opacity: 0.6;
-		} 
-	
-		@media (max-width:530px){
-				top: -37px;
-				right: 5px;
-				width: 20px;
-				height: 20px;
-			}
-		} 
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(0, 0, 0, 0.1) 20%, 
+        rgba(0, 0, 0, 0.1) 80%, 
+        transparent 100%
+      );
+    }
+  }
 
-		&__image-close {
-			width: 3rem;
-			height: 3rem;
-			cursor: pointer;
-			transition: opacity .2s ease;			
-			cursor: pointer;
-			}
+  &__title {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+    color: #2c3e50;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+    letter-spacing: -0.2px;
+  }
 
-		&__save {
-			// width: 100%;
-			// margin-top: 22px;
-			// padding: 14px 0 11px 0;
-			// color: #fff;
-			// background-color: #000;
-			// font-style: normal;
-			// font-weight: 400;
-			// font-size: 18px;
-			// line-height: 1.22;
-			// transition: all 1s ease;
-			// border-radius: 2px;
-			// cursor: pointer;
+  &__close {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #666;
+    font-size: 24px;
+    line-height: 1;
+    padding: 0;
 
-		&:hover {
-			transition: all .2s ease;
-			opacity: .8;
-		}
+    &:hover {
+      background: rgba(0, 0, 0, 0.12);
+      border-color: rgba(0, 0, 0, 0.2);
+      color: #333;
+      transform: rotate(90deg);
+    }
 
-		@media (max-width:425px){
-				font-size: 14px;
-				line-height: 1.2;
-				padding-bottom: 14px 0;
-				margin-top: 25px;
-		}
+    &:active {
+      transform: rotate(90deg) scale(0.95);
+    }
+  }
 
-		&_disabled {
-			background: #fff;
-			border: 1px solid rgba(0, 0, 0, .2);
-			box-shadow: 0px 0px 25px rgba(0, 0, 0, .15);
-			color: rgba(0, 0, 0, .2);
-			transition: all .1s ease;
-			box-sizing: border-box;
-			cursor: auto;
+  &__close-icon {
+    display: block;
+    transform: translateY(-1px);
+  }
 
-			&:focus {
-				-webkit-tap-highlight-color: rgba(0, 0, 0, .2);
-			}
-			&:active {
-				-webkit-tap-highlight-color: rgba(255, 255, 255, .2);
-			}
-		}
-	}	
+  &__body {
+    flex: 1;
+    padding: 28px;
+    overflow-y: auto;
+    max-height: calc(90vh - 80px);
+  }
+
+  // =========== АДАПТИВНОСТЬ ===========
+  @media (max-width: 768px) {
+    &__container {
+      padding: 10px;
+    }
+
+    &__content {
+      max-width: 95%;
+      
+      &_size_small,
+      &_size_medium,
+      &_size_large {
+        width: 100%;
+      }
+    }
+
+    &__header {
+      padding: 20px 20px 16px;
+    }
+
+    &__title {
+      font-size: 20px;
+    }
+
+    &__body {
+      padding: 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    &__title {
+      font-size: 18px;
+    }
+
+    &__header {
+      padding: 16px 16px 12px;
+    }
+
+    &__body {
+      padding: 16px;
+    }
+
+    &__close {
+      width: 32px;
+      height: 32px;
+      font-size: 20px;
+    }
+  }
+}
+
+// Добавьте эти стили в конец Popup.scss
+
+// =========== СТИЛИ ДЛЯ ОШИБОК И ПОДСКАЗОК ===========
+.popup-new-block-user {
+  .popup__content {
+    background: linear-gradient(145deg, #f0f0f0 0%, #e6e6e6 100%);
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__field {
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  &__label {
+    display: block;
+    font-weight: 500;
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 6px;
+    
+    &::after {
+      content: '*';
+      color: #ff6b6b;
+      margin-left: 2px;
+    }
+  }
+
+  &__input-text,
+  &__input-number {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    font-size: 15px;
+    background: white;
+    transition: all 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: #8f9fc2;
+      box-shadow: 0 0 0 3px rgba(143, 159, 194, 0.1);
+    }
+
+    &::placeholder {
+      color: #aaa;
+      font-size: 13px;
+    }
+
+    &_error {
+      border-color: #ff6b6b !important;
+      box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1) !important;
+    }
+  }
+
+  &__input-number {
+    text-align: center;
+  }
+
+  &__error {
+    display: block;
+    color: #ff6b6b;
+    font-size: 12px;
+    margin-top: 4px;
+    padding-left: 4px;
+    animation: fadeIn 0.3s ease;
+  }
+
+  &__dimensions {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 
+      0 4px 12px rgba(0, 0, 0, 0.05),
+      inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  &__dimension-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+  }
+
+  &__dimensions-hint {
+    font-size: 12px;
+    color: #888;
+    text-align: right;
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+  &__option {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 
+      0 4px 12px rgba(0, 0, 0, 0.05),
+      inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  &__checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 15px;
+    color: #555;
+  }
+
+  &__checkbox {
+    width: 20px;
+    height: 20px;
+    accent-color: #8f9fc2;
+    cursor: pointer;
+  }
+
+  &__checkbox-text {
+    font-weight: 500;
+  }
+
+  &__actions {
+    margin-top: 8px;
+  }
+
+  &__button {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #8f9fc2 0%, #7a8ab0 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, #7a8ab0 0%, #6a7aa0 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    &_disabled {
+      background: #cccccc;
+      color: #888;
+      cursor: not-allowed;
+      opacity: 0.7;
+
+      &:hover {
+        transform: none;
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+// Анимация для появления ошибок
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .popup-new-block-user {
+    &__dimension-group {
+      gap: 12px;
+    }
+
+    &__dimensions,
+    &__option {
+      padding: 16px;
+    }
+  }
 }

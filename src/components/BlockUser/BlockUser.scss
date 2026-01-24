@@ -1,68 +1,143 @@
 .block-user {
+	width: 100%;
 	display: flex;
 	position: relative;
+	justify-content: space-between;
+	background-color: #fff;
+
+	&__header {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 1.5rem;
+		background-color: #f8f9fa;
+		border-radius: 12px;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+		transition: all 0.3s ease;
+
+		&:hover {
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+		}
+	}
+
+	&__title-wrapper {
+		background: linear-gradient(to right, white 40%, #8f9fc2, #8f9fc2);
+		padding: 1rem;
+		border-radius: 5px;
+	}
+
+	&__title {
+		font-size: 3rem;		
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-image: linear-gradient(to left, white 57%, #8f9fc2 40%);
+		
+		&:hover {
+			box-shadow: 0 4px 15px rgba(169, 91, 215, 0.3);
+		}
+	}
 
 	&__list {
 		display: flex;
-		align-self: center;		
-		gap: 1rem;
-		list-style: none;
-		height: 80%;
+		align-items: center;
+		gap: 1.5rem;
+		padding: 0.75rem 1.25rem;
+		background-color: white;
+		border-radius: 10px;
+		border: 1px solid #e9ecef;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+		flex-wrap: wrap;
 	}
 
 	&__item {		
 		min-width: 4rem;
-		// border: 1px solid #000;
-		// min-width: 25%;
+		height: 4rem;
 		cursor: pointer;
 		position: relative;		
 		display: flex;
+		transition: all 0.3s ease;
+		border-radius: 6px;
+		overflow: hidden;
+		background: #fff;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		border: 1px solid #e9ecef;
 
+		// Скрываем кнопку удаления только у первых четырех item
+		 &[data-standard="true"] .block-user__delete {
+    display: none;
+  }
+
+		// Плашка под item
 		&:hover {
-			background-color: rgb(210, 210, 210);
-		}		
+			transform: translateY(-3px);
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+			border-color: #667eea;
+			
+			.block-user__overlay {
+				background-color: rgba(102, 126, 234, 0.1);
+			}
+		}
+	}
+
+	&__add {
+		width: 3.5rem;
+		height: 3.5rem;
+		min-width: 3.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		position: relative;
+		transition: all 0.3s ease;
+		
+		&:hover {
+			transform: scale(1.05);
+		}
 	}
 
 	&__col-1 {
 		width: 100%;
-		// &_type {
-		// 	&_pallet {
-		// 		background-color: #a1795d;
-				
-		// 	}
-		// }
-		// &_type {
-		// 	&_no-pallet {
-		// 		background-color: #989292;
-		// 	}
-		// }
+		height: 100%;
 	}	
 
 	&__col-2 {
 		display: flex;
 		justify-content: space-between;
-		width: 100%;	
+		width: 100%;
+		position: relative;
 	}
 
 	&__delete {
 		display: block;
 		position: absolute;
-		top: 0;
-		right: 0;
-		width: 30%;
-		height: 30%;
-		line-height: .5;
-		transform: rotate(45deg);
-		z-index: 100;
-	}
-
-	&__add {
+		bottom: 22px;
+		right: -2px;
+		width: 14px;
+		height: 14px;
+		background: #ff6b6b;
+		color: white;
+		border-radius: 50%;
 		display: flex;
-		gap: 3rem;
-		flex-wrap: wrap;
-		width: 20%;
-		aspect-ratio: 1;
-		position: relative;	
+		align-items: center;
+		justify-content: center;
+		font-size: 14px;
+		font-weight: bold;
+		cursor: pointer;
+		z-index: 100;
+		transition: all 0.2s ease;
+		border: 2px solid white;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+		
+		&:hover {
+			background: #ff5252;
+			transform: scale(1.1);
+		}
+		
+		&:active {
+			transform: scale(0.95);
+		}
 	}
 
 	&__overlay {
@@ -72,74 +147,147 @@
 		width: 100%;		
 		height: 100%;
 		z-index: 10;
-		background-color: gray;
-		opacity: .2;
-		filter: opacity(.5);
+		background-color: rgba(0, 0, 0, 0.05);
 		pointer-events: none;
+		transition: background-color 0.3s ease;
 	}
 
 	&__standard {
 		display: flex;
+		flex-direction: column;
 		width: 100%;
+		height: 100%;
+		position: relative;
+		border-radius: 5px;
+		overflow: hidden;
 		
-		// opacity: .5;
 		&_type {
-			border: 1px solid #000;
 			&_pallet {
-				background-color: #9a928d;						
+				border: 2px solid #a1795d;
 			}
 		}
+		
 		&_type {
 			&_no-pallet {
-				background-color: #989292;
+				border: 2px solid #989292;
 			}
 		}
 
 		&_standard-1 {
 			background-image: url('../../assets/images/euro.jpeg');
-			filter: brightness(70%);
-			filter: saturate(25%);
-			text-align: center;
 			background-size: contain;
 			background-repeat: no-repeat;
+			background-position: center;
+			filter: brightness(90%) saturate(80%);
 		}
+		
 		&_standard-2 {
 			background-image: url('../../assets/images/amer.png');
 			background-size: cover;
 			background-repeat: no-repeat;
-			filter: saturate(25%);
-			width: 100%;
+			background-position: center;
+			filter: brightness(90%) saturate(80%);
 		}
+		
 		&_standard-3 {
 			background-image: url('../../assets/images/3.webp');
 			background-size: cover;
 			background-repeat: no-repeat;
-			filter: invert(25%);
-			// filter: saturate(25%);
-
+			background-position: center;
+			filter: brightness(90%) saturate(80%);
 		}
+		
 		&_standard-4 {
 			background-image: url('../../assets/images/4.webp');
 			background-size: cover;
 			background-repeat: no-repeat;
-			// filter: saturate(25%);
-			filter: invert(5%);
-
-
+			background-position: center;
+			filter: brightness(90%) saturate(80%);
 		}
 	}
 
 	&__info {
-		position: relative;
-		display: block;
-		width: 100%;
-		margin: 92% 0 0 0;
-		background-color: rgb(172, 172, 235);
-		border-top-right-radius: .5rem;
+		position: absolute;
+		bottom: -2px;
+		right: -5px;
+		width: 24px;
+		height: 24px;
+		background-color: rgb(102, 126, 234);
+		border-radius: 50%;
 		color: #fff;
-		text-align: center;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 12px;
+		font-weight: bold;
 		z-index: 100;
-		filter: sepia(00%);
+		cursor: zoom-in;
+		transition: all 0.2s ease;
+		border: 2px solid white;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+		
+		&:hover {
+			background-color: rgb(86, 106, 204);
+			transform: scale(1.1);
+		}
 	}
-	
+}
+
+// Медиа-запросы для маленьких экранов
+@media (max-width: 768px) {
+	.block-user {
+		&__header {
+			flex-direction: column;
+			align-items: stretch;
+			gap: 1rem;
+			padding: 1rem;
+		}
+		
+		&__title {
+			width: 100%;
+			text-align: center;
+			justify-content: center;
+			padding: 0.75rem;
+			margin-bottom: 0.5rem;
+			font-size: 2.5rem;
+		}
+		
+		&__list {
+			width: 100%;
+			padding: 0.75rem;
+			gap: 1rem;
+			justify-content: center;
+		}
+		
+		&__item {
+			min-width: 3.5rem;
+			height: 3.5rem;
+		}
+		
+		&__add {
+			width: 3rem;
+			height: 3rem;
+			min-width: 3rem;
+		}
+	}
+}
+
+// Дополнительные стили для улучшения юзабилити
+@media (max-width: 480px) {
+	.block-user {
+		&__list {
+			gap: 0.75rem;
+			padding: 0.5rem;
+		}
+		
+		&__item {
+			min-width: 3rem;
+			height: 3rem;
+		}
+		
+		&__title {
+			font-size: 1.8rem;
+			padding: 0.5rem;
+		}
+	}
 }

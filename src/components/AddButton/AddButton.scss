@@ -1,50 +1,135 @@
-.add-button {
-	margin: 0 0 0 26%;
-	padding: 0 0 0 45%;
-	height: 45%;
+.add-button-container {
+	width: 2rem;
+	height: 2rem;
 	display: flex;
-	align-self: center;
-	border-radius: 48%;
+	align-items: center;
+	justify-content: center;
 	cursor: pointer;
-	&:before,
-	&:after {
-				position: absolute;
-				content: '';
-				top: 50%;
-				left: 30%;
-				width: 40%;
-				height: .1rem;
-				background-color: hsl(0, 0%, 27%);
+	transition: all 0.2s ease;
+	
+	&:hover {
+		.add-button {
+			transform: scale(1.05);
+			background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+			box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+			
+			&__line {
+				&--vertical {
+					transform: translate(-50%, -50%) rotate(90deg);
+				}
 				
-		}					
-		&:before {
-				transform: rotate(90deg);
-		}					
-		&:after {
-				transform: rotate(180deg);
+				&--horizontal {
+					transform: translate(-50%, -50%) rotate(180deg);
+				}
+			}
 		}
-		
-		&__close-popup {
-			cursor: pointer;
-			transform: rotate(45deg);
-			margin: .5rem 0 0 0;
-			padding: 2rem;
-		}	
-		
-// 		&__position {
-// 			margin: 0 0 0 26%;
-//     padding: 0 0 0 45%;
-//     height: 45%;
-//     display: flex
-// ;
-//     align-self: center;
-//     border-radius: 48%;
-//     cursor: pointer;
-// 		}
+	}
+	
+	&:active {
+		.add-button {
+			transform: scale(0.95);
+		}
+	}
 }
 
-.disable {
-	pointer-events: none;	
-	display: none;
+.add-button {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
 	
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		border-radius: 50%;
+		background: radial-gradient(circle at center, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+	
+	&:hover::before {
+		opacity: 1;
+	}
+	
+	&__line {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		background-color: #fff;
+		border-radius: 2px;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		
+		&--vertical {
+			width: 2px;
+			height: 40%;
+			transform: translate(-50%, -50%);
+		}
+		
+		&--horizontal {
+			width: 40%;
+			height: 2px;
+			transform: translate(-50%, -50%);
+		}
+	}
+	
+	// Анимация пульсации
+	// @keyframes pulse {
+	// 	0% {
+	// 		box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4);
+	// 	}
+	// 	70% {
+	// 		box-shadow: 0 0 0 6px rgba(102, 126, 234, 0);
+	// 	}
+	// 	100% {
+	// 		box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
+	// 	}
+	// }
+	
+	// animation: pulse 2s infinite;
+	
+	// &:hover {
+	// 	animation: none;
+	// }
+}
+
+// Отключенное состояние
+.disable {
+	pointer-events: none;
+	opacity: 0.4;
+	cursor: not-allowed;
+	
+	.add-button {
+		background: linear-gradient(135deg, #cccccc 0%, #999999 100%);
+		animation: none;
+		
+		&__line {
+			background-color: #f0f0f0;
+		}
+	}
+}
+
+// Адаптивность
+@media (max-width: 768px) {
+	.add-button {
+		&__line {
+			&--vertical {
+				height: 35%;
+			}
+			
+			&--horizontal {
+				width: 35%;
+			}
+		}
+	}
 }

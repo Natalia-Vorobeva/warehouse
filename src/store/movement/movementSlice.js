@@ -55,7 +55,6 @@ const movementSlice = createSlice({
 		},
 		handleFillField: (state, action) => {
 			state.fillField = action.payload
-			// console.log('%cstate.fillField', 'color: purple', state.fillField )
 		}
 	}
 })
@@ -72,24 +71,3 @@ export const {
 } = movementSlice.actions
 export default movementSlice.reducer
 
-
-// const formEntrySlice = createSlice({
-//   name: 'formEntry',
-//   initialState: {
-//     chapter: false,
-//   },
-//   reducers: {
-//     handleClickEntry: state => {
-//       state.formView = 'entry'
-//     },
-//     handleClickRecovery: state => {
-//       state.formView = 'recovery'
-//     },
-//     handleClickRegistration: state => {
-//       state.formView = 'registration'
-//     },
-//   },
-// })
-
-// export const { handleClickEntry, handleClickRecovery, handleClickRegistration } = formEntrySlice.actions
-// export default formEntrySlice.reducer

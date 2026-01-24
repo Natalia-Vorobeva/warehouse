@@ -1,81 +1,79 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { authSelectors } from '../../store/auth/authSelectors'
-import { 
-	setIsOpenPopupAuth 
-} from '../../store/auth/authSlice.js'
-
-import AddButton from '../AddButton/AddButton';
-import Button from '../Button/Button';
-
+import { useEffect } from 'react';
 import './Popup.scss';
 
 function Popup({
-	title, btnText, name,
-	children,
-	onSubmit,
-	isOpen,
-	onClose,
-	type,
-	disabled
+  title,
+  name,
+  children,
+  onSubmit,
+  isOpen,
+  onClose,
+  showCloseButton = true,
+  size = 'medium',
+  customClassName = '',
+  overlayClickClose = true
 }) {
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscClose);
+    }
+    return () => {
+      document.removeEventListener('keydown', handleEscClose);
+    };
+  }, [isOpen]);
 
-	const dispatch = useDispatch()
+  function handleEscClose(evt) {
+    if (evt.key === 'Escape') {
+      onClose(); // ✅ Используем переданный onClose
+    }
+  }
 
-	useEffect(() => {
-		if (isOpen) {
-			document.addEventListener('keydown', handleEscClose)
-		}
-		return () => {
-			document.removeEventListener('keydown', handleEscClose)
-		}
-	}, [isOpen]);
+  function handleOverlayClick(evt) {
+    if (overlayClickClose && evt.target.classList.contains('popup__container')) {
+      onClose(); // ✅ Используем переданный onClose
+    }
+  }
 
-	function handleEscClose(evt) {
-		if (evt.key === 'Escape') {
-			dispatch(setIsOpenPopupAuth(false))
-		};
-	};
+  const sizeClasses = {
+    small: 'popup__content_size_small',
+    medium: 'popup__content_size_medium',
+    large: 'popup__content_size_large'
+  };
 
-	function mouseDownClose(evt) {
-		if (evt.target.classList.contains('popup__container')) {
-			dispatch(setIsOpenPopupAuth(false))
-		};
-	}
-
-	
-
-	return (
-		<div className={`popup popup_form_${name} ${isOpen ? "popup_opened" : ""}`}
-			onMouseDown={mouseDownClose}>
-			<div className="popup__container">
-				<form
-					action="#"
-					noValidate
-					name={name}
-					onSubmit={onSubmit}
-					className={`form popup__content popup__content_form_${name}`}>
-					<h3 className="popup__title">{title}</h3>
-					{
-						children
-					}
-					{
-						<Button
-							type={type || "submit"}
-							className={`button__save ${disabled}`}
-							name="button2"
-							btnText={btnText || 'Вход'}
-						/>
-					}
-					<div className="popup__close" type="button" name="button1">
-						<AddButton 
-						onClick={onClose} 
-						className='add-button__close-popup' />
-					</div>
-				</form>
-			</div>
-		</div>
-	)
+  return (
+    <div 
+      className={`popup popup_form_${name} ${isOpen ? "popup_opened" : ""} ${customClassName}`}
+      onMouseDown={handleOverlayClick}
+    >
+      <div className="popup__container">
+        <form
+          action="#"
+          noValidate
+          name={name}
+          onSubmit={onSubmit}
+          className={`popup__content ${sizeClasses[size]}`}
+        >
+          <div className="popup__header">
+            <h3 className="popup__title">{title}</h3>
+            {showCloseButton && (
+              <button 
+                type="button" 
+                className="popup__close"
+                onClick={onClose} // ✅ Используем переданный onClose
+                aria-label="Закрыть"
+              >
+                <span className="popup__close-icon">×</span>
+              </button>
+            )}
+          </div>
+          
+          <div className="popup__body">
+            {children}
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 }
 
 export default Popup;

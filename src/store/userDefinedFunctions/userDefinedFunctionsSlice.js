@@ -1,52 +1,36 @@
 import { createSlice } from '@reduxjs/toolkit'
-// import { initialState } from './initialState'
 
-const reportSlice = createSlice({
-	name: 'userDefinedFunctionsSlice',
-	initialState: {
-		isOpenPopupNewBlock: false,
-		isOpenInfoPopupBlock: false,
-		dataInfoPopupBlock: {}
-	},
-	reducers: {
-		setIsOpenPopupNewBlock: (state, action) => {
-			state.isOpenPopupNewBlock = action.payload
-		},
-		setIsOpenInfoPopupBlock: (state, action) => {
-			state.isOpenInfoPopupBlock = action.payload			
-		},	
-		setDataInfoPopupBlock: (state, action) => {
-			state.dataInfoPopupBlock = action.payload
-			console.log('%cstate.dataInfoPopupBlock', 'color: purple', state.dataInfoPopupBlock)
-		}	
-
-	}
+const userDefinedFunctionsSlice = createSlice({
+  name: 'userDefinedFunctions',
+  initialState: {
+    isOpenPopupNewBlock: false,     // ← Для попапа добавления нового блока
+    isOpenInfoPopupBlock: false,    // ← Для попапа информации о блоке
+    dataInfoPopupBlock: null        // ← Данные для попапа информации
+  },
+  reducers: {
+    setIsOpenPopupNewBlock: (state, action) => {
+      state.isOpenPopupNewBlock = action.payload
+    },
+    setIsOpenInfoPopupBlock: (state, action) => {
+      state.isOpenInfoPopupBlock = action.payload
+    },
+    setDataInfoPopupBlock: (state, action) => {
+      state.dataInfoPopupBlock = action.payload
+    },
+    // Дополнительный редьюсер для сброса всех состояний
+    resetAllPopupStates: (state) => {
+      state.isOpenPopupNewBlock = false
+      state.isOpenInfoPopupBlock = false
+      state.dataInfoPopupBlock = null
+    }
+  }
 })
 
 export const {
-	setIsOpenPopupNewBlock, setIsOpenInfoPopupBlock, setDataInfoPopupBlock
+  setIsOpenPopupNewBlock,
+  setIsOpenInfoPopupBlock,
+  setDataInfoPopupBlock,
+  resetAllPopupStates
+} = userDefinedFunctionsSlice.actions
 
-} = reportSlice.actions
-export default reportSlice.reducer
-
-
-// const formEntrySlice = createSlice({
-//   name: 'formEntry',
-//   initialState: {
-//     chapter: false,
-//   },
-//   reducers: {
-//     handleClickEntry: state => {
-//       state.formView = 'entry'
-//     },
-//     handleClickRecovery: state => {
-//       state.formView = 'recovery'
-//     },
-//     handleClickRegistration: state => {
-//       state.formView = 'registration'
-//     },
-//   },
-// })
-
-// export const { handleClickEntry, handleClickRecovery, handleClickRegistration } = formEntrySlice.actions
-// export default formEntrySlice.reducer
+export default userDefinedFunctionsSlice.reducer

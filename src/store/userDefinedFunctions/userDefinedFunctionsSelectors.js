@@ -1,10 +1,9 @@
-const getIsOpenPopupNewBlock = state => state.userDefinedFunctions.isOpenPopupNewBlock
-const getIsOpenInfoPopupBlock = state => state.userDefinedFunctions.isOpenInfoPopupBlock
-const getDataInfoPopupBlock = state => state.userDefinedFunctions.dataInfoPopupBlock
-
+export const getIsOpenPopupNewBlock = state => state.userDefinedFunctions.isOpenPopupNewBlock
+export const getIsOpenInfoPopupBlock = state => state.userDefinedFunctions.isOpenInfoPopupBlock
+export const getDataInfoPopupBlock = state => state.userDefinedFunctions.dataInfoPopupBlock
 
 export const userDefinedFunctionsSelectors = {
-	getIsOpenPopupNewBlock,
-	getIsOpenInfoPopupBlock,
-	getDataInfoPopupBlock
+  getIsOpenPopupNewBlock,
+  getIsOpenInfoPopupBlock,
+  getDataInfoPopupBlock
 }
